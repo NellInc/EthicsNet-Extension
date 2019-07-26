@@ -1,0 +1,42 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+}
+
+div {
+  padding: 20px;
+  width: 350px;
+  height: 300px;
+}
+
+/* 
+
+  Hello Eleanor,
+  
+  I have some questions about the project. 
+
+  Some user stories:
+    1 - the user should select a text a see a button close by.
+    2 - when the button is clicked a sidebar will appear so they can submit the selected text with or without modifications.
+  
+
+  you said you would like to collect more information, so with type? 
+
+
+  I can make the user be able to submit only if they are logged in, so we can explicitly ask for it when the user signs up (this would be like 99% accurate). There's the possibility of collecting implicit pieces of information, we can get a city, language, etc but this isn't accurate, on the other hand, anyone (without sign up) could collaborate. 
+
+
+  So, which other information should I ask/get from the user aside from the text itself?
+  Same goes for the video feature where we'll get a time range.
+
+
+  For the backend we can use firebase again, but depending on the kind of data we want to store it may not be as efficient as having a custom backend, like a nodejs server (which will take more time to develop and be more expensive) because we will certainly need to have some other functions on the backend as well. 
+
+  Which you prefer, Firebase or a Custom backend?
+
+  I believe this is only the first part of the project which consists in getting the data, the other would be to make use of it to create models/train AI's with those libraries you shared, am I correct?
+
+*/
