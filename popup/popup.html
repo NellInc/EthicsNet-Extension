@@ -1,13 +1,34 @@
 <html>
   <head>
-    <link rel="stylesheet" href="./popup.css" />
     <link rel="stylesheet" href="../sidebar/bootstrap.min.css" />
+    <link rel="stylesheet" href="./popup.css" />
   </head>
   <body>
-    <div>
-      <h1>EthicsNet</h1>
-      <p>welcome to ethics net!</p>
-      <div id="text"></div>
+
+    <div class="wrapper not-logged">
+      <div class="mb-3">
+        <h4>Welcome to EthicsNet!</h4>
+      </div>
+
+      <div>
+        <p>Do you have an account?
+        <a href="http://localhost:3000/login" target="_blank">Log in</a>
+        </p>
+      </div>
+
+      <div>
+        <p>Don't you have an account?
+        <a href="http://localhost:3000/register" target="_blank">Sign up</a>
+        </p>
+      </div>
+    </div>
+
+    <div class="wrapper user-info">
+
+      <p class="welcome"></p>
+
+      <button type="button" name="button" class="btn btn-primary logout">logout</button>
+
     </div>
 
     <script src="./popup.js"></script>

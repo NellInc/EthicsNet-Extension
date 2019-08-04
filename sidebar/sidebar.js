@@ -1,5 +1,15 @@
 console.log('hello world from sidebar!!');
 
+const getInfo = document.querySelector('.getInfo');
+
+getInfo.onclick = () => {
+  console.log('from the sidebar');
+  chrome.storage.sync.get(['userData'], function(result) {
+    console.log('Value currently is ->', result);
+  });
+}
+
+
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   console.log(
     sender.tab
@@ -35,10 +45,10 @@ form.onsubmit = e => {
   }
 };
 
-/* 
+/*
 
   some options to consider:
-    to anotate text while on the web. this is the easiest part. 
+    to anotate text while on the web. this is the easiest part.
     what other fields would we want to get:
       1 - extract browser data/cookies etc - may not be accurate.
       directly ask the user at signup - in order to use the tool.
@@ -48,9 +58,9 @@ form.onsubmit = e => {
         country
         city
         ...
-    
+
     and save this data in a organized way...
-    
+
     next step would be to label the data...
     train machines - machine learning, artificial inteligente etc...
 

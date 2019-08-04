@@ -177,9 +177,25 @@ window.onload = () => {
     const userId = localStorage.getItem('userId')
     const token = localStorage.getItem('token')
     const isLogged = localStorage.getItem('isLogged');
+    const userName = localStorage.getItem('userName');
 
-    console.log('local storage -> ', userId, token, isLogged);
+    console.log('local storage -> \n',userId, '\n',  token, '\n', isLogged);
 
+    const userData = {
+      userName,
+      userId,
+      token,
+    }
+
+    chrome.storage.sync.set({userData}, function() {
+      console.log('Value is set to ', userData);
+    });
+  }
+
+  if (document.URL === 'http://localhost:3000/login') {
+    chrome.storage.sync.get(['userData'], function(result) {
+      console.log('Value currently is ->', result);
+    });
   }
 };
 
