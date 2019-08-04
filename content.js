@@ -89,7 +89,7 @@ window.onload = () => {
     .fade-left {
       animation: slideout-right .5s;
     }
-    
+
     #ethics-net-extension-root {
       display: none;
       width: 400px;
@@ -101,13 +101,13 @@ window.onload = () => {
       background-color: white;
       box-shadow: 0px 0px 15px #0000009e;
     }
-    
+
     #ethics-net-extension-root iframe {
       width: 100%;
       height: 100%;
       border: none;
     }
-    
+
     #tooltip {
       position:absolute;
       display:none;
@@ -121,7 +121,7 @@ window.onload = () => {
       height: 30px;
       width: 30px;
     }
-  
+
     #cal1{
       position:absolute;
       height:0px;
@@ -131,7 +131,7 @@ window.onload = () => {
       overflow:none;
       z-index:-100;
     }
-  
+
     #cal2{
       position:absolute;
       height:0px;
@@ -168,4 +168,40 @@ window.onload = () => {
       console.log(response);
     });
   };
+
+  // LOGIN RELATED!!!
+  console.log(document.URL);
+  if (document.URL === 'http://localhost:3000/profile') {
+
+    // can be any other thing that you have used to authenticate the user
+    const userId = localStorage.getItem('userId')
+    const token = localStorage.getItem('token')
+    const isLogged = localStorage.getItem('isLogged');
+
+    console.log('local storage -> ', userId, token, isLogged);
+
+  }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//
