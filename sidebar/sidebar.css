@@ -12,6 +12,24 @@ h2 {
   text-align: center;
 }
 
+.text-saved {
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0px 1px 3px 3px #ddd;
+}
+
+.text {
+  min-height: 470px;
+}
+
+.loader-wrapper {
+  display: flex;
+  height: 300px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
 /* .appear {
   animation: appear 1s;
 }

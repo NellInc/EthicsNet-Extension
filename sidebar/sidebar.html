@@ -11,43 +11,29 @@
     <link rel="stylesheet" href="./bootstrap.min.css" />
   </head>
   <body>
-    <h4 class="text-center mb-2">Ethics Eth - Annotate the web</h4>
-    <form id="form">
-      <div class="form-group">
-        <label for="selected-text">Text selected</label>
-        <textarea
-          class="text form-control"
-          id="selected-text"
-          rows="5"
-        ></textarea>
-      </div>
 
-      <!-- Either show one or another, never both at the same time. -->
-
-      <!--
-      <div class="form-group">
-        <label for="videoUrl">Video Url</label>
-        <input
-          type="text"
-          class="form-control"
-          id="videoUrl"
-          placeholder="video url"
-        />
-      </div>
-
-      <div class="row">
-        <div class="col">
-          <input type="text" class="form-control" placeholder="start" />
+    <div class="to-submit container">
+      <h4 class="text-center mb-2">Ethics Eth - Annotate the web</h4>
+      <form id="form">
+        <div class="form-group">
+          <label for="selected-text">Text selected</label>
+          <textarea
+            class="text form-control"
+            id="selected-text"
+            rows="5"
+          ></textarea>
         </div>
-        <div class="col">
-          <input type="text" class="form-control" placeholder="end" />
-        </div>
-      </div>
-       -->
-      <button class="btn btn-info mt-3">Save</button>
-    </form>
+        <button class="btn btn-info">Save</button>
+      </form>
+    </div>
 
-    <button class="getInfo" type="button" name="button">Get user info</button>
+
+    <!-- <button type="button" class="btn-test btn btn-primary" name="button">Test</button> -->
+
+    <!-- <a href=`chrome.runtime.getURL('sidebar/sidebar.html'));`>submit</a> -->
+
+    <!-- <button class="getInfo" type="button" name="button">Get user info</button> -->
+
     <script src="./sidebar.js"></script>
   </body>
 </html>

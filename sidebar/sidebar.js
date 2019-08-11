@@ -1,14 +1,38 @@
 console.log('hello world from sidebar!!');
 
-const getInfo = document.querySelector('.getInfo');
+// const getInfo = document.querySelector('.getInfo');
+// getInfo.onclick = () => {
+//   console.log('from the sidebar');
+//   chrome.storage.sync.get(['userData'], function(result) {
+//     console.log('Value currently is ->', result);
+//   });
+// }
 
-getInfo.onclick = () => {
-  console.log('from the sidebar');
-  chrome.storage.sync.get(['userData'], function(result) {
-    console.log('Value currently is ->', result);
-  });
-}
+const toSubmit = document.querySelector('.to-submit');
 
+// toSubmit.innerHTML = `
+//   <h4 class="text-center mb-2">Ethics Eth - Annotate the web</h4>
+//   <form id="form">
+//     <div class="form-group">
+//       <label for="selected-text">Text selected</label>
+//       <textarea
+//         class="text form-control"
+//         id="selected-text"
+//         rows="5"
+//       ></textarea>
+//     </div>
+//     <button class="btn btn-info">Save</button>
+//   </form>
+// `
+
+// const btnTest = document.querySelector('.btn-test');
+// btnTest.onclick = () => {
+//   toSubmit.innerHTML = `
+//     <div class="spinner-border" role="status">
+//       <span class="sr-only">Loading...</span>
+//     </div>
+//   `
+// }
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   console.log(
@@ -27,9 +51,17 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
 const form = document.getElementById('form');
 
+console.log('form ->', form);
+
 form.onsubmit = e => {
+
+  console.log('\n\nsubmitting the form!! -> ');
+
   e.preventDefault();
+
   const selectedText = document.querySelector('.text');
+  console.log('selectedText -> ', selectedText);
+
   if (selectedText.value) {
     console.log(selectedText.value);
     const { value } = selectedText;
@@ -39,11 +71,60 @@ form.onsubmit = e => {
       content: value,
     };
 
+    toSubmit.innerHTML = `
+      <div class="loader-wrapper">
+        <div class="spinner-border" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+    `
+
     chrome.runtime.sendMessage(data, response => {
       console.log(response);
     });
   }
 };
+
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+  console.log('getting message from api call ->', request);
+  if (request.to === 'sidebar-submit') {
+    sendResponse({ message: 'we got the message!!' });
+    console.log('API CALL MADE');
+
+    toSubmit.innerHTML = `
+      <div class="">
+        <p>Anotation saved</p>
+        <p class="text-saved">${request.content.textCreated.content}</p>
+        <button class="btn btn-primary"><a style="color: #fff;" href="http://localhost:3000/profile/anotations" target="_blank">see all</a></button>
+        <button class="btn btn-secondary new-anotation">new anotation</button>
+      </div>
+    `
+
+    let newAnotation = document.querySelector('.new-anotation');
+
+    newAnotation.onclick = () => {
+      console.log('reloading...');
+      window.location.reload();
+      // console.log('\n\nnew anotation.. injecting');
+      // toSubmit.innerHTML = `
+      //   <h4 class="text-center mb-2">Ethics Eth - Annotate the web</h4>
+      //   <form id="form">
+      //     <div class="form-group">
+      //       <label for="selected-text">Text selected</label>
+      //       <textarea
+      //         class="text form-control"
+      //         id="selected-text"
+      //         rows="5"
+      //       ></textarea>
+      //     </div>
+      //     <button class="btn btn-info">Save</button>
+      //   </form>
+      // `
+    }
+  }
+});
+
+
 
 /*
 

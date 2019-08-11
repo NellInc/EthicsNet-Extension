@@ -1,5 +1,9 @@
 console.log('background');
 
+chrome.storage.sync.get(['userData'], function(result) {
+  console.log('Value currently is ->', result);
+})
+
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   console.log(
     sender.tab
@@ -20,37 +24,50 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
       const { content } = request;
       const { token, userId } = result.userData;
 
+      const data = {
+        content,
+        authorId: userId
+      }
 
+      console.log('data -> ', data);
 
       const postData = async () => {
         try {
-          const response = await fetch('http://localhost:5000/auth/authenticate', {
-           method: 'POST', // *GET, POST, PUT, DELETE, etc.
-           mode: 'cors', // no-cors, cors, *same-origin
-           cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-           credentials: 'same-origin', // include, *same-origin, omit
+          const response = await fetch('http://localhost:5000/api/post-text', {
+           method: 'POST',
+           mode: 'cors',
+           cache: 'no-cache',
+           credentials: 'same-origin',
            headers: {
              'Content-Type': 'application/json',
-             // Authorization: `Bearer ${token}`,
-             // 'Content-Type': 'application/x-www-form-urlencoded',
+             'Authorization': `Bearer ${token}`,
            },
-           redirect: 'follow', // manual, *follow, error
-           referrer: 'no-referrer', // no-referrer, *client
-           body: JSON.stringify(data), // body data type must match "Content-Type" header
+           redirect: 'follow',
+           referrer: 'no-referrer',
+           body: JSON.stringify(data),
          });
+
+         const responseData = await response.json();
+         console.log('response from api call -> ', responseData);
+
+         const info = {
+           to: 'sidebar-submit',
+           content: responseData
+         }
+
+         chrome.runtime.sendMessage(info, response => {
+           console.log('sending message!', data);
+           console.log('response ->', response);
+         })
 
         } catch(error) {
           console.log('error -> ', error);
         }
       }
+
       postData()
     });
-
-
   }
-
-
-
 });
 
 // // Called when the user clicks on the browser action.

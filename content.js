@@ -170,7 +170,10 @@ window.onload = () => {
   };
 
   // LOGIN RELATED!!!
+  // if the users go to the /profile route on the app
+  // it will set the storage
   console.log(document.URL);
+
   if (document.URL === 'http://localhost:3000/profile') {
 
     // can be any other thing that you have used to authenticate the user
@@ -187,6 +190,8 @@ window.onload = () => {
       token,
     }
 
+    console.log('user data from content -> ', userData);
+
     chrome.storage.sync.set({userData}, function() {
       console.log('Value is set to ', userData);
     });
@@ -197,6 +202,11 @@ window.onload = () => {
       console.log('Value currently is ->', result);
     });
   }
+
+  chrome.storage.sync.get(['userData'], function(result) {
+    console.log('user currently is ->', result);
+  });
+  
 };
 
 
