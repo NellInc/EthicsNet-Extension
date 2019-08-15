@@ -1,8 +1,11 @@
 console.log('I rannnn ... im popup :DD');
 
-chrome.storage.sync.get(['userData'], function(result) {
+console.log(window.location);
 
-  if (result.userData.userId) {
+chrome.storage.sync.get(['userData'], function(result) {
+  console.log('userdata ->', result.userData);
+
+  if (result.userData) {
 
     const notLogged = document.querySelector('.not-logged');
     notLogged.style.display = 'none';
@@ -24,12 +27,13 @@ chrome.storage.sync.get(['userData'], function(result) {
 
 const logout = document.querySelector('.logout');
 
-logout.onclick = () => {
-  chrome.storage.sync.remove('userData', function(){
-    // alert('Item deleted!');
-    logout.innerHTML = '<a href="http://localhost:3000/login" target="_blank" style="color: #fff;">login</a>';
-    // logout.setAttribute('href', 'http://localhost:3000/login')
-    // logout.setAttribute('target', '_blank')
-    // localtion.reload()
-});
-}
+// logout.onclick = () => {
+//   chrome.storage.sync.remove('userData', function(){
+//     // alert('Item deleted!');
+//     logout.innerHTML = '<a href="http://localhost:3000/login" target="_blank" style="color: #fff;">login</a>';
+//
+//     // logout.setAttribute('href', 'http://localhost:3000/login')
+//     // logout.setAttribute('target', '_blank')
+//     // localtion.reload()
+// });
+// }

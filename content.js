@@ -1,3 +1,5 @@
+const authURL = "http://extension.lupuselit.me"
+
 window.onload = () => {
   // //
   // injects the toolbar
@@ -172,9 +174,13 @@ window.onload = () => {
   // LOGIN RELATED!!!
   // if the users go to the /profile route on the app
   // it will set the storage
+  console.log('LOGIN RELATED!');
   console.log(document.URL);
+  console.log(authURL);
 
-  if (document.URL === 'http://localhost:3000/profile') {
+  if (document.URL === authURL || document.URL === 'http://localhost:3000/#/') {
+
+    console.log('SAVED USER INFO ON CHROME EXTENSION');
 
     // can be any other thing that you have used to authenticate the user
     const userId = localStorage.getItem('userId')
@@ -206,7 +212,14 @@ window.onload = () => {
   chrome.storage.sync.get(['userData'], function(result) {
     console.log('user currently is ->', result);
   });
-  
+
+  if (document.URL === authURL || document.URL === 'http://localhost:3000/#/logged-out') {
+      console.log('log out from the content!');
+      chrome.storage.sync.remove('userData', function(){
+      console.log('you are logged out!!');
+    });
+  }
+
 };
 
 

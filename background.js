@@ -1,3 +1,5 @@
+const apiURL = 'http://localhost';
+
 console.log('background');
 
 chrome.storage.sync.get(['userData'], function(result) {
@@ -33,7 +35,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
       const postData = async () => {
         try {
-          const response = await fetch('http://localhost:5000/api/post-text', {
+          const response = await fetch(`${apiURL}/api/post-text`, {
            method: 'POST',
            mode: 'cors',
            cache: 'no-cache',
