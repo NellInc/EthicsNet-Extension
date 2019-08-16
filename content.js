@@ -1,4 +1,4 @@
-const authURL = "http://extension.lupuselit.me"
+const authURL = "http://extension.lupuselit.me/#/"
 
 window.onload = () => {
   // //
@@ -178,7 +178,10 @@ window.onload = () => {
   console.log(document.URL);
   console.log(authURL);
 
-  if (document.URL === authURL || document.URL === 'http://localhost:3000/#/') {
+  // this wont work!
+  // if (document.URL.includes('http://extension.lupuselit.me') || document.URL.includes('http://localhost:3000')) {}
+
+  if (document.URL === authURL || document.URL === 'http://localhost:3000/#/'  || document.URL === 'http://extension.lupuselit.me' || document.URL === 'http://extension.lupuselit.me/') {
 
     console.log('SAVED USER INFO ON CHROME EXTENSION');
 
@@ -213,7 +216,7 @@ window.onload = () => {
     console.log('user currently is ->', result);
   });
 
-  if (document.URL === authURL || document.URL === 'http://localhost:3000/#/logged-out') {
+  if (document.URL === 'http://localhost:3000/#/logged-out') {
       console.log('log out from the content!');
       chrome.storage.sync.remove('userData', function(){
       console.log('you are logged out!!');

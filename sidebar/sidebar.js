@@ -4,7 +4,9 @@ const toSubmit = document.querySelector('.to-submit');
 
 console.log('TO SUBMIT ->', toSubmit);
 
-const apiURL = 'http://localhost:3000'
+// const apiURL = 'http://localhost:3000'
+// const apiURL = 'http://167.71.163.123';
+const apiURL = 'http://extension.lupuselit.me/#';
 
 chrome.storage.sync.get(['userData'], function(result) {
   console.log('userdata ->', result.userData);
@@ -101,7 +103,7 @@ chrome.storage.sync.get(['userData'], function(result) {
           <div class="">
             <p>Anotation saved</p>
             <p class="text-saved">${request.content.textCreated.content}</p>
-            <button class="btn btn-primary"><a style="color: #fff;" href="http://localhost:3000/profile/anotations" target="_blank">see all</a></button>
+            <button class="btn btn-primary"><a style="color: #fff;" href="${apiURL}/profile/anotations" target="_blank">see all</a></button>
             <button class="btn btn-secondary new-anotation">new anotation</button>
           </div>
         `

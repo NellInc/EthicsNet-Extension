@@ -1,4 +1,5 @@
-const apiURL = 'http://localhost';
+// const apiURL = 'http://localhost';
+const apiURL = 'http://167.71.163.123';
 
 console.log('background');
 
@@ -34,6 +35,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
       console.log('data -> ', data);
 
       const postData = async () => {
+        console.log('API URL ->', apiURL);
         try {
           const response = await fetch(`${apiURL}/api/post-text`, {
            method: 'POST',
