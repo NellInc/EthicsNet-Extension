@@ -216,6 +216,8 @@ window.onload = () => {
     console.log('user currently is ->', result);
   });
 
+  // this works only on reload because it doesnt
+  // detect the url changes
   if (document.URL === 'http://localhost:3000/#/logged-out') {
       console.log('log out from the content!');
       chrome.storage.sync.remove('userData', function(){
