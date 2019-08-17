@@ -222,7 +222,7 @@ window.onload = () => {
 
   // this works only on reload because it doesnt
   // detect the url changes
-  if (document.URL === 'http://localhost:3000/#/logged-out') {
+  if (document.URL === 'http://localhost:3000/#/logged-out' || document.URL === 'http://extension.lupuselit.me/#/logged-out') {
       console.log('log out from the content!');
       chrome.storage.sync.remove('userData', function(){
       console.log('you are logged out!!');
