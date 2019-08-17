@@ -61,27 +61,6 @@ window.onload = () => {
           console.log('response from innerHTML -> ', response);
         })
       }, 400);
-
-
-
-      // const toSubmit = document.querySelector('.to-submit')
-      //
-      // console.log(toSubmit);
-      //
-      // toSubmit.innerHTML = `
-      //   <h4 class="text-center mb-2">Ethics Eth - Annotate the web</h4>
-      //   <form id="form">
-      //     <div class="form-group">
-      //       <label for="selected-text">Text selected</label>
-      //       <textarea
-      //         class="text form-control"
-      //         id="selected-text"
-      //         rows="5"
-      //       ></textarea>
-      //     </div>
-      //     <button class="btn btn-info">Save</button>
-      //   </form>
-      // `
     }
   });
 

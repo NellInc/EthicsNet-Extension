@@ -2,8 +2,6 @@ console.log('hello world from sidebar!!');
 
 const toSubmit = document.querySelector('.to-submit');
 
-console.log('TO SUBMIT ->', toSubmit);
-
 // const apiURL = 'http://localhost:3000'
 // const apiURL = 'http://167.71.163.123';
 const apiURL = 'http://extension.lupuselit.me/#';
@@ -55,27 +53,6 @@ chrome.storage.sync.get(['userData'], function(result) {
       );
       console.log(request);
       if (request.to === 'sidebar') {
-        // const toSubmit = document.querySelector('.to-submit')
-        //
-        // console.log(toSubmit);
-        //
-        // toSubmit.innerHTML = `
-        //   <h4 class="text-center mb-2">Ethics Eth - Annotate the web</h4>
-        //   <form id="form">
-        //     <div class="form-group">
-        //       <label for="selected-text">Text selected</label>
-        //       <textarea
-        //         class="text form-control"
-        //         id="selected-text"
-        //         rows="5"
-        //       ></textarea>
-        //     </div>
-        //     <button class="btn btn-info">Save</button>
-        //   </form>
-        // `
-
-        console.log('GETTING TEXT');
-
         sendResponse({ message: 'changed the sidebar!' });
         const text = document.querySelector('.text');
         text.innerHTML = request.content;
@@ -133,62 +110,11 @@ chrome.storage.sync.get(['userData'], function(result) {
         newAnotation.onclick = () => {
           console.log('reloading...');
           window.location.reload();
-          // console.log('\n\nnew anotation.. injecting');
-          // toSubmit.innerHTML = `
-          //   <h4 class="text-center mb-2">Ethics Eth - Annotate the web</h4>
-          //   <form id="form">
-          //     <div class="form-group">
-          //       <label for="selected-text">Text selected</label>
-          //       <textarea
-          //         class="text form-control"
-          //         id="selected-text"
-          //         rows="5"
-          //       ></textarea>
-          //     </div>
-          //     <button class="btn btn-info">Save</button>
-          //   </form>
-          // `
         }
       }
     });
   }
 })
-
-// const getInfo = document.querySelector('.getInfo');
-// getInfo.onclick = () => {
-//   console.log('from the sidebar');
-//   chrome.storage.sync.get(['userData'], function(result) {
-//     console.log('Value currently is ->', result);
-//   });
-// }
-
-// toSubmit.innerHTML = `
-//   <h4 class="text-center mb-2">Ethics Eth - Annotate the web</h4>
-//   <form id="form">
-//     <div class="form-group">
-//       <label for="selected-text">Text selected</label>
-//       <textarea
-//         class="text form-control"
-//         id="selected-text"
-//         rows="5"
-//       ></textarea>
-//     </div>
-//     <button class="btn btn-info">Save</button>
-//   </form>
-// `
-
-// const btnTest = document.querySelector('.btn-test');
-// btnTest.onclick = () => {
-//   toSubmit.innerHTML = `
-//     <div class="spinner-border" role="status">
-//       <span class="sr-only">Loading...</span>
-//     </div>
-//   `
-// }
-
-
-
-
 
 /*
 
