@@ -47,7 +47,7 @@ window.onload = () => {
     // this is to allow the button to be clicked
     setTimeout(() => {
       ele.style.display = 'none';
-    }, 10);
+    }, 500);
 
     const sidebar = document.querySelector('#ethics-net-extension-root');
 
@@ -56,7 +56,32 @@ window.onload = () => {
       setTimeout(() => {
         sidebar.style.display = 'none';
         sidebar.removeAttribute('class');
+
+        chrome.runtime.sendMessage({to: 'new-text', content: 'void'}, response => {
+          console.log('response from innerHTML -> ', response);
+        })
       }, 400);
+
+
+
+      // const toSubmit = document.querySelector('.to-submit')
+      //
+      // console.log(toSubmit);
+      //
+      // toSubmit.innerHTML = `
+      //   <h4 class="text-center mb-2">Ethics Eth - Annotate the web</h4>
+      //   <form id="form">
+      //     <div class="form-group">
+      //       <label for="selected-text">Text selected</label>
+      //       <textarea
+      //         class="text form-control"
+      //         id="selected-text"
+      //         rows="5"
+      //       ></textarea>
+      //     </div>
+      //     <button class="btn btn-info">Save</button>
+      //   </form>
+      // `
     }
   });
 

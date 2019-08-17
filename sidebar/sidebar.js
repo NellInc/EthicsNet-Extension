@@ -8,6 +8,14 @@ console.log('TO SUBMIT ->', toSubmit);
 // const apiURL = 'http://167.71.163.123';
 const apiURL = 'http://extension.lupuselit.me/#';
 
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+  console.log('getting message from api call ->', request);
+  if (request.to === 'new-text') {
+    window.location.reload();
+    sendResponse({ message: 'ok' });
+  }
+});
+
 chrome.storage.sync.get(['userData'], function(result) {
   console.log('userdata ->', result.userData);
   if (!result.userData) {
@@ -38,9 +46,7 @@ chrome.storage.sync.get(['userData'], function(result) {
         </div>
       </div>
     `
-  }
-
-  else {
+  } else {
     chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
       console.log(
         sender.tab
@@ -49,6 +55,27 @@ chrome.storage.sync.get(['userData'], function(result) {
       );
       console.log(request);
       if (request.to === 'sidebar') {
+        // const toSubmit = document.querySelector('.to-submit')
+        //
+        // console.log(toSubmit);
+        //
+        // toSubmit.innerHTML = `
+        //   <h4 class="text-center mb-2">Ethics Eth - Annotate the web</h4>
+        //   <form id="form">
+        //     <div class="form-group">
+        //       <label for="selected-text">Text selected</label>
+        //       <textarea
+        //         class="text form-control"
+        //         id="selected-text"
+        //         rows="5"
+        //       ></textarea>
+        //     </div>
+        //     <button class="btn btn-info">Save</button>
+        //   </form>
+        // `
+
+        console.log('GETTING TEXT');
+
         sendResponse({ message: 'changed the sidebar!' });
         const text = document.querySelector('.text');
         text.innerHTML = request.content;
@@ -57,14 +84,7 @@ chrome.storage.sync.get(['userData'], function(result) {
     });
 
     const form = document.getElementById('form');
-
-    console.log('form ->', form);
-    console.log('TO SUBMIT ->', toSubmit);
-
     form.onsubmit = e => {
-
-      console.log('\n\nsubmitting the form!! -> ');
-
       e.preventDefault();
 
       const selectedText = document.querySelector('.text');
