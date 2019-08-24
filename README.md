@@ -4,4 +4,4 @@
 
 1 - simply import it on `chrome://extension`
 
-2 - You'll see an icon right by the chrome menu while browsing 
+2 - You'll see an icon right by the chrome menu while browsing

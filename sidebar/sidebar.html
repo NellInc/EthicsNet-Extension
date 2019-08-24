@@ -13,7 +13,7 @@
   <body>
 
     <div class="to-submit container">
-      <h4 class="text-center mb-2">Ethics Eth - Annotate the web</h4>
+      <h4 class="text-center mb-2">Ethics Net - Annotate the web</h4>
       <form id="form">
         <div class="form-group">
           <label for="selected-text">Text selected</label>
@@ -24,6 +24,17 @@
           >
           </textarea>
         </div>
+
+        <div class="form-group">
+          <label for="category">Category</label>
+          <select class="form-control" id="category">
+            <option value="0">Morally preferable</option>
+            <option value="1">Morally unpreferable</option>
+            <option value="2">Aesthetically preferable</option>
+            <option value="3">Aesthetically unpreferable</option>
+          </select>
+        </div>
+
         <button class="btn btn-info">Save</button>
       </form>
     </div>

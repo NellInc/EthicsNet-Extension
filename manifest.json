@@ -1,11 +1,11 @@
 {
   "manifest_version": 2,
   "name": "ethics net",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["content.js"],
+      "js": ["js/html2canvas.js","content.js"],
       "run_at": "document_start",
       "all_frames": true
     }
@@ -13,10 +13,18 @@
   "background": {
     "scripts": ["background.js"]
   },
+  "icons": {
+    "16": "images/16x16.png"
+  },
   "web_accessible_resources": ["sidebar/sidebar.html"],
   "browser_action": {
     "default_icon": "images/icon.png",
     "default_popup": "popup/popup.html"
   },
-  "permissions": ["tabs", "<all_urls>", "storage", "contextMenus"]
+  "permissions": [
+    "tabs",
+    "activeTab",
+    "storage",
+    "contextMenus"
+  ]
 }

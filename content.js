@@ -1,6 +1,17 @@
-const authURL = "http://extension.lupuselit.me/#/"
+const authURL = "http://extension.lupuselit.me/#/";
 
 window.onload = () => {
+
+  // const elementToInsert = document.createElement('div');
+  //
+  // elementToInsert.innerHTML = `
+  //   <div id="capture" style="padding: 10px; background: #f5da55">
+  //     <h4 style="color: #000; ">Hello world!</h4>
+  //   </div>
+  // `
+  //
+  // document.body.appendChild(elementToInsert)
+
   // //
   // injects the toolbar
   const toolbarWrapper = document.createElement('div');
@@ -229,8 +240,83 @@ window.onload = () => {
     });
   }
 
+// END OF WINDOW.ONLOAD
 };
 
+function convertCanvasToImage(canvas) {
+   var image = new Image();
+   image.src = canvas.toDataURL("image/png");
+   return image;
+ }
+
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+  console.log('request for the button click!', request.to);
+  if (request.to === 'select-area') {
+    sendResponse('got it from the background!');
+    // write your code here...
+    document.body.style.cursor = 'crosshair';
+    html2canvas(document.querySelector("body")).then(canvas => {
+      console.log('canvas -> ', canvas);
+      // you may save this as an image to your backend
+      const img = convertCanvasToImage(canvas);
+
+      // console.log('img ->', img);
+      // console.log('img src ->', img.src);
+
+      chrome.runtime.sendMessage({to: 'cache-image', content: img.src}, function(response) {
+        console.log(response);
+      });
+
+      document.body.appendChild(img);
+    });
+  }
+});
+
+// Reset the cursor to its default state
+window.onmouseup = () => {
+  console.log('mouse up');
+  document.body.style.cursor = 'default';
+}
+
+// window.onmousemove = () => {
+//   // console.log('moving');
+//   // var x = event.clientX;     // Get the horizontal coordinate
+//   // var y = event.clientY;     // Get the vertical coordinate
+//   // var coor = "X coords: " + x + ", Y coords: " + y;
+//   // console.log(coor);
+// }
+//
+// window.onload = () => {
+//   const btn = document.querySelector('.screenshot');
+//
+//   btn.onclick = () => {
+//     setTimeout(() => {
+//       let canvas = document.querySelector('.ethics-net-canvas');
+//       let context = canvas.getContext("2d");
+//       let height = canvas.height = window.innerHeight;
+//       let width = canvas.width = window.innerWidth;
+//
+//       let mouseClicked = false, mouseReleased = true;
+//
+//       document.addEventListener('click', onMouseClick, false);
+//       document.addEventListener('mousemove', onMouseMove, false);
+//
+//       function onMouseClick(e) {
+//         mouseClicked = !mouseClicked;
+//       }
+//
+//       function onMouseMove(e) {
+//         if (mouseClicked) {
+//           context.beginPath();
+//           context.arc(e.clientX, e.clientY, 2, 1, Math.PI * 2, true);
+//           context.lineWidth = 5;
+//           context.strokeStyle = '#000';
+//           context.stroke();
+//         }
+//       }
+//     }, 2000)
+//   }
+// }
 
 
 

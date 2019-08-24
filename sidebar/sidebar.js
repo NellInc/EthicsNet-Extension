@@ -67,6 +67,17 @@ chrome.storage.sync.get(['userData'], function(result) {
       const selectedText = document.querySelector('.text');
       console.log('selectedText -> ', selectedText);
 
+      const options = {
+        0: 'morally preferable',
+        1: 'morally unpreferable',
+        2: 'aesthetically preferable',
+        3: 'aesthetically unpreferable'
+      }
+
+      const category = document.querySelector('#category');
+
+      console.log(options[category.selectedIndex]);
+
       if (selectedText.value) {
         console.log(selectedText.value);
         const { value } = selectedText;
@@ -74,6 +85,7 @@ chrome.storage.sync.get(['userData'], function(result) {
         const data = {
           to: 'background',
           content: value,
+          category: options[category.selectedIndex]
         };
 
         toSubmit.innerHTML = `
