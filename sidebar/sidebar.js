@@ -1,6 +1,7 @@
 console.log('hello world from sidebar!!');
 
 const toSubmit = document.querySelector('.to-submit');
+let font = '';
 
 // const apiURL = 'http://localhost:3000'
 // const apiURL = 'http://167.71.163.123';
@@ -57,6 +58,11 @@ chrome.storage.sync.get(['userData'], function(result) {
         const text = document.querySelector('.text');
         text.innerHTML = request.content;
         text.classList += ' appear';
+
+        console.log('font -> ', request.font);
+
+        font = request.font
+        
       }
     });
 
@@ -85,7 +91,8 @@ chrome.storage.sync.get(['userData'], function(result) {
         const data = {
           to: 'background',
           content: value,
-          category: options[category.selectedIndex]
+          category: options[category.selectedIndex],
+          font: font
         };
 
         toSubmit.innerHTML = `

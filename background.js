@@ -16,13 +16,14 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     chrome.storage.sync.get(['userData'], function(result) {
       console.log('Value currently is -> ', result);
 
-      const { content, category } = request;
+      const { content, category, font } = request;
       const { token, userId } = result.userData;
 
       console.log('request from sidebar -> ', request);
       const data = {
         category,
         content,
+        font,
         authorId: userId
       }
 

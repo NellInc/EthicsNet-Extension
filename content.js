@@ -179,6 +179,7 @@ window.onload = () => {
     const data = {
       to: 'sidebar',
       content: window.getSelection().toString(),
+      font: window.location.href
     };
 
     chrome.runtime.sendMessage(data, function(response) {
