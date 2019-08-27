@@ -5,7 +5,7 @@
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["js/html2canvas.js","content.js"],
+      "js": ["js/html2canvas.js", "content.js"],
       "run_at": "document_start",
       "all_frames": true
     }
@@ -21,10 +21,5 @@
     "default_icon": "images/icon.png",
     "default_popup": "popup/popup.html"
   },
-  "permissions": [
-    "tabs",
-    "activeTab",
-    "storage",
-    "contextMenus"
-  ]
+  "permissions": ["tabs", "activeTab", "storage", "contextMenus"]
 }

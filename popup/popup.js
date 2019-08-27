@@ -6,23 +6,20 @@ chrome.storage.sync.get(['userData'], function(result) {
   console.log('userdata ->', result.userData);
 
   if (result.userData) {
-
     const notLogged = document.querySelector('.not-logged');
     notLogged.style.display = 'none';
     const userInfo = document.querySelector('.user-info');
     userInfo.style.display = 'block';
 
-
     let { userName } = result.userData;
     userName = userName.charAt(0).toUpperCase() + userName.slice(1);
 
     const welcome = document.querySelector('.welcome');
-    welcome.innerHTML = `Welcome to EthicsNet ${userName}`
-
-  } else {}
+    welcome.innerHTML = `Welcome to EthicsNet ${userName}`;
+  } else {
+  }
 
   console.log('Value currently is ->', result);
-
 });
 
 const logout = document.querySelector('.logout');

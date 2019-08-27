@@ -1,7 +1,6 @@
-const authURL = "http://extension.lupuselit.me/#/";
+const authURL = 'http://extension.lupuselit.me/#/';
 
 window.onload = () => {
-
   // const elementToInsert = document.createElement('div');
   //
   // elementToInsert.innerHTML = `
@@ -68,9 +67,12 @@ window.onload = () => {
         sidebar.style.display = 'none';
         sidebar.removeAttribute('class');
 
-        chrome.runtime.sendMessage({to: 'new-text', content: 'void'}, response => {
-          console.log('response from innerHTML -> ', response);
-        })
+        chrome.runtime.sendMessage(
+          { to: 'new-text', content: 'void' },
+          response => {
+            console.log('response from innerHTML -> ', response);
+          }
+        );
       }, 400);
     }
   });
@@ -179,7 +181,7 @@ window.onload = () => {
     const data = {
       to: 'sidebar',
       content: window.getSelection().toString(),
-      font: window.location.href
+      font: window.location.href,
     };
 
     chrome.runtime.sendMessage(data, function(response) {
@@ -197,27 +199,31 @@ window.onload = () => {
   // this wont work!
   // if (document.URL.includes('http://extension.lupuselit.me') || document.URL.includes('http://localhost:3000')) {}
 
-  if (document.URL === authURL || document.URL === 'http://localhost:3000/#/'  || document.URL === 'http://extension.lupuselit.me' || document.URL === 'http://extension.lupuselit.me/') {
-
+  if (
+    document.URL === authURL ||
+    document.URL === 'http://localhost:3000/#/' ||
+    document.URL === 'http://extension.lupuselit.me' ||
+    document.URL === 'http://extension.lupuselit.me/'
+  ) {
     console.log('SAVED USER INFO ON CHROME EXTENSION');
 
     // can be any other thing that you have used to authenticate the user
-    const userId = localStorage.getItem('userId')
-    const token = localStorage.getItem('token')
+    const userId = localStorage.getItem('userId');
+    const token = localStorage.getItem('token');
     const isLogged = localStorage.getItem('isLogged');
     const userName = localStorage.getItem('userName');
 
-    console.log('local storage -> \n',userId, '\n',  token, '\n', isLogged);
+    console.log('local storage -> \n', userId, '\n', token, '\n', isLogged);
 
     const userData = {
       userName,
       userId,
       token,
-    }
+    };
 
     console.log('user data from content -> ', userData);
 
-    chrome.storage.sync.set({userData}, function() {
+    chrome.storage.sync.set({ userData }, function() {
       console.log('Value is set to ', userData);
     });
   }
@@ -234,21 +240,24 @@ window.onload = () => {
 
   // this works only on reload because it doesnt
   // detect the url changes
-  if (document.URL === 'http://localhost:3000/#/logged-out' || document.URL === 'http://extension.lupuselit.me/#/logged-out') {
-      console.log('log out from the content!');
-      chrome.storage.sync.remove('userData', function(){
+  if (
+    document.URL === 'http://localhost:3000/#/logged-out' ||
+    document.URL === 'http://extension.lupuselit.me/#/logged-out'
+  ) {
+    console.log('log out from the content!');
+    chrome.storage.sync.remove('userData', function() {
       console.log('you are logged out!!');
     });
   }
 
-// END OF WINDOW.ONLOAD
+  // END OF WINDOW.ONLOAD
 };
 
 function convertCanvasToImage(canvas) {
-   var image = new Image();
-   image.src = canvas.toDataURL("image/png");
-   return image;
- }
+  var image = new Image();
+  image.src = canvas.toDataURL('image/png');
+  return image;
+}
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   console.log('request for the button click!', request.to);
@@ -256,7 +265,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     sendResponse('got it from the background!');
     // write your code here...
     document.body.style.cursor = 'crosshair';
-    html2canvas(document.querySelector("body")).then(canvas => {
+    html2canvas(document.querySelector('body')).then(canvas => {
       console.log('canvas -> ', canvas);
       // you may save this as an image to your backend
       const img = convertCanvasToImage(canvas);
@@ -264,9 +273,12 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
       // console.log('img ->', img);
       // console.log('img src ->', img.src);
 
-      chrome.runtime.sendMessage({to: 'cache-image', content: img.src}, function(response) {
-        console.log(response);
-      });
+      chrome.runtime.sendMessage(
+        { to: 'cache-image', content: img.src },
+        function(response) {
+          console.log(response);
+        }
+      );
 
       document.body.appendChild(img);
     });
@@ -277,7 +289,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 window.onmouseup = () => {
   console.log('mouse up');
   document.body.style.cursor = 'default';
-}
+};
 
 // window.onmousemove = () => {
 //   // console.log('moving');
@@ -318,25 +330,5 @@ window.onmouseup = () => {
 //     }, 2000)
 //   }
 // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 //

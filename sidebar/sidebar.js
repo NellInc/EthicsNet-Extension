@@ -1,5 +1,3 @@
-console.log('hello world from sidebar!!');
-
 const toSubmit = document.querySelector('.to-submit');
 let font = '';
 
@@ -44,9 +42,13 @@ chrome.storage.sync.get(['userData'], function(result) {
           </a>
         </div>
       </div>
-    `
+    `;
   } else {
-    chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+    chrome.runtime.onMessage.addListener(function(
+      request,
+      sender,
+      sendResponse
+    ) {
       console.log(
         sender.tab
           ? 'from a content script:' + sender.tab.url
@@ -61,8 +63,7 @@ chrome.storage.sync.get(['userData'], function(result) {
 
         console.log('font -> ', request.font);
 
-        font = request.font
-        
+        font = request.font;
       }
     });
 
@@ -77,8 +78,8 @@ chrome.storage.sync.get(['userData'], function(result) {
         0: 'morally preferable',
         1: 'morally unpreferable',
         2: 'aesthetically preferable',
-        3: 'aesthetically unpreferable'
-      }
+        3: 'aesthetically unpreferable',
+      };
 
       const category = document.querySelector('#category');
 
@@ -92,7 +93,7 @@ chrome.storage.sync.get(['userData'], function(result) {
           to: 'background',
           content: value,
           category: options[category.selectedIndex],
-          font: font
+          font: font,
         };
 
         toSubmit.innerHTML = `
@@ -101,7 +102,7 @@ chrome.storage.sync.get(['userData'], function(result) {
               <span class="sr-only">Loading...</span>
             </div>
           </div>
-        `
+        `;
 
         chrome.runtime.sendMessage(data, response => {
           console.log(response);
@@ -109,7 +110,11 @@ chrome.storage.sync.get(['userData'], function(result) {
       }
     };
 
-    chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+    chrome.runtime.onMessage.addListener(function(
+      request,
+      sender,
+      sendResponse
+    ) {
       console.log('getting message from api call ->', request);
       if (request.to === 'sidebar-submit') {
         sendResponse({ message: 'we got the message!!' });
@@ -122,18 +127,18 @@ chrome.storage.sync.get(['userData'], function(result) {
             <button class="btn btn-primary"><a style="color: #fff;" href="${apiURL}/profile/anotations" target="_blank">see all</a></button>
             <button class="btn btn-secondary new-anotation">new anotation</button>
           </div>
-        `
+        `;
 
         let newAnotation = document.querySelector('.new-anotation');
 
         newAnotation.onclick = () => {
           console.log('reloading...');
           window.location.reload();
-        }
+        };
       }
     });
   }
-})
+});
 
 /*
 

@@ -5,7 +5,7 @@ console.log('background');
 
 chrome.storage.sync.get(['userData'], function(result) {
   console.log('Value currently is ->', result);
-})
+});
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   if (request.to === 'background') {
@@ -24,8 +24,8 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         category,
         content,
         font,
-        authorId: userId
-      }
+        authorId: userId,
+      };
 
       console.log('data -> ', data);
 
@@ -33,61 +33,60 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         console.log('API URL ->', apiURL);
         try {
           const response = await fetch(`${apiURL}/api/post-text`, {
-           method: 'POST',
-           mode: 'cors',
-           cache: 'no-cache',
-           credentials: 'same-origin',
-           headers: {
-             'Content-Type': 'application/json',
-             'Authorization': `Bearer ${token}`,
-           },
-           redirect: 'follow',
-           referrer: 'no-referrer',
-           body: JSON.stringify(data),
-         });
+            method: 'POST',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: 'same-origin',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`,
+            },
+            redirect: 'follow',
+            referrer: 'no-referrer',
+            body: JSON.stringify(data),
+          });
 
-         const responseData = await response.json();
-         console.log('response from api call -> ', responseData);
+          const responseData = await response.json();
+          console.log('response from api call -> ', responseData);
 
-         const info = {
-           to: 'sidebar-submit',
-           content: responseData
-         }
+          const info = {
+            to: 'sidebar-submit',
+            content: responseData,
+          };
 
-         chrome.runtime.sendMessage(info, response => {
-           console.log('sending message!', data);
-           console.log('response ->', response);
-         })
-
-        } catch(error) {
+          chrome.runtime.sendMessage(info, response => {
+            console.log('sending message!', data);
+            console.log('response ->', response);
+          });
+        } catch (error) {
           console.log('error -> ', error);
         }
-      }
+      };
 
-      postData()
+      postData();
     });
   }
 });
 
 const contextMenuItem = {
-  "id": "ethicsNet",
-  "title": "Select Area",
-  "contexts": ["page"]
-}
+  id: 'ethicsNet',
+  title: 'Select Area',
+  contexts: ['page'],
+};
 
 chrome.contextMenus.create(contextMenuItem);
 
 chrome.contextMenus.onClicked.addListener(function(clickedData) {
-  if (clickedData.menuItemId === "ethicsNet") {
+  if (clickedData.menuItemId === 'ethicsNet') {
     console.log('it is your menu that was clicked!!!');
 
     const data = {
       to: 'select-area',
-      content: 'select area option was clicked!'
-    }
+      content: 'select area option was clicked!',
+    };
 
     // needs to specify with tab to send the message to!
-    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+    chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
       chrome.tabs.sendMessage(tabs[0].id, data, function(response) {
         console.log(response);
       });
@@ -107,22 +106,19 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
       const { token, userId } = result.userData;
 
       const data = {
-        cachedImg: request.content
-      }
+        cachedImg: request.content,
+      };
 
       const postData = async () => {
-
         try {
-
-          const response = await fetch(`${apiURL}/api/user/image/${userId}`,
-          {
+          const response = await fetch(`${apiURL}/api/user/image/${userId}`, {
             method: 'PUT',
             mode: 'cors',
             cache: 'no-cache',
             creadentials: 'same-origin',
             headers: {
               'Content-Type': 'application/json',
-              'Authorization': `Bearer ${token}`,
+              Authorization: `Bearer ${token}`,
             },
             redirect: 'follow',
             referrer: 'no-referrer',
@@ -131,18 +127,13 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
           const responseData = await response.json();
           console.log(responseData);
+        } catch (e) {}
+      };
 
-        } catch (e) {
-
-        }
-      }
-
-      postData()
-    })
+      postData();
+    });
   }
-})
-
-
+});
 
 // // Called when the user clicks on the browser action.
 // chrome.browserAction.onClicked.addListener(function(tab) {
