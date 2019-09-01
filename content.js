@@ -265,6 +265,9 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     sendResponse('got it from the background!');
     // write your code here...
     document.body.style.cursor = 'crosshair';
+
+
+    // Canvas -- >
     html2canvas(
       document.querySelector('body'),
       {
@@ -272,10 +275,8 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         allowTaint: true,
         taintTest: false,
         pagesplit: false,
-        optimized: false,
-        logging: true
-      }
-      )
+        optimized: false
+      })
       .then(canvas => {
       console.log('canvas -> ', canvas);
       // you may save this as an image to your backend
@@ -291,9 +292,11 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         }
       );
 
-      document.body.appendChild(img);
-      document.body.appendChild(canvas);
+      // document.body.appendChild(img);
+      // document.body.appendChild(canvas);
     });
+    // END OF CANVAS <--
+    
   }
 });
 
