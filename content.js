@@ -266,7 +266,87 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     // write your code here...
     document.body.style.cursor = 'crosshair';
 
+    var node = document.querySelector('body');
 
+    const styles = document.createElement('div');
+
+    styles.innerHTML = `
+      <style>
+        .ethics-net-active {
+          
+          border: 2px solid red;
+        }
+      </style>
+
+      <h1 class="ethics-net-active">Emerson Lopes</h1>
+    `;
+
+    node.appendChild(styles);
+
+    var all = document.querySelector('body');
+
+    document.querySelectorAll('*').forEach(function(node) {
+
+      node.addEventListener('mouseleave', function() {
+        this.className.replace(
+          ' ethics-net-active',
+          ''
+        );
+        console.log('OUT');
+      })
+
+      node.addEventListener('mouseover', function(event) {
+        event.stopPropagation()
+        // console.log('NODE ->>>', node);
+        // node.style.border = '1px solid red'
+
+        var current = document.getElementsByClassName('ethics-net-active');
+
+        current[0].className = current[0].className.replace(
+          ' ethics-net-active',
+          ''
+        );
+        console.log("IN");
+        this.className += ' ethics-net-active';
+
+        node.addEventListener('click', function(event) {
+          event.stopPropagation()
+          event.preventDefault()
+          console.log('Node clicked! -> ', node);
+        })
+
+        // node.onclick = () => {
+        //   console.log('node clicked ->', node);
+        // }
+
+        // var current = document.getElementsByClassName('ethics-net-active');
+
+        // current[length - 1].className = current[length - 1].className.replace(
+        //   ' ethics-net-active',
+        //   ''
+        // );
+        // console.log("IN");
+        // this.className += ' ethics-net-active';
+      });
+    });
+
+    // for (var i = 0, max = all.length; i < max; i++) {
+    //     // Do something with the element here
+    //     all[i].addEventListener("mouseover", function() {
+    //       console.log('CLICKED!!');
+    //       var current = document.getElementsByClassName("ethics-net-active");
+    //       current[0].className = current[0].className.replace(" ethics-net-active", "");
+    //       this.className += " ethics-net-active";
+    //       });
+    // }
+
+    chrome.runtime.sendMessage({ to: 'cache-image', content: node }, function(
+      response
+    ) {
+      console.log(response);
+    });
+
+    /*
     // Canvas -- >
     html2canvas(
       document.querySelector('body'),
@@ -296,7 +376,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
       // document.body.appendChild(canvas);
     });
     // END OF CANVAS <--
-    
+    */
   }
 });
 
