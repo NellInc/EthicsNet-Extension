@@ -70,7 +70,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
 const contextMenuItem = {
   id: 'ethicsNet',
-  title: 'Select Area',
+  title: 'Select area',
   contexts: ['page'],
 };
 
@@ -127,6 +127,11 @@ chrome.contextMenus.onClicked.addListener(function(clickedData) {
         postData();
       });
     });
+
+    setTimeout(() => {
+      var win = window.open('http://localhost:3000/#/image/new', '_blank');
+      win.focus();
+    }, 2000);
   }
 });
 
