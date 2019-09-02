@@ -262,58 +262,81 @@ function convertCanvasToImage(canvas) {
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   console.log('request for the button click!', request.to);
   if (request.to === 'select-area') {
-    sendResponse('got it from the background!');
-    // write your code here...
-    document.body.style.cursor = 'crosshair';
 
+    // chrome.tabs.captureVisibleTab(null, function(img) {
+    //   console.log('APPENDING IMAGE!!!');
+    //   const el = document.createElement('img');
+    //   el.src = img;
+    //   document.body.appendChild(el);
+    // })
+    // sendResponse('got it from the background!');
+    // // write your code here...
+    // document.body.style.cursor = 'crosshair';
+
+    // async function getScreenshot() {
+    //   const captureStream = await navigator.mediaDevices.getDisplayMedia();
+
+
+    //   console.log(captureStream);
+
+
+    //   const el = document.createElement('img');
+    //   el.src = captureStream;
+
+    //   document.body.appendChild(el);
+
+    // }
+
+    // getScreenshot();
+
+    /*
     var node = document.querySelector('body');
-
     const styles = document.createElement('div');
-
     styles.innerHTML = `
       <style>
         .ethics-net-active {
-          
-          border: 2px solid red;
+          border: 1px solid red;
         }
       </style>
-
-      <h1 class="ethics-net-active">Emerson Lopes</h1>
     `;
-
     node.appendChild(styles);
 
-    var all = document.querySelector('body');
-
     document.querySelectorAll('*').forEach(function(node) {
-
-      node.addEventListener('mouseleave', function() {
-        this.className.replace(
-          ' ethics-net-active',
-          ''
-        );
-        console.log('OUT');
-      })
-
       node.addEventListener('mouseover', function(event) {
-        event.stopPropagation()
-        // console.log('NODE ->>>', node);
-        // node.style.border = '1px solid red'
+        event.stopPropagation();
 
         var current = document.getElementsByClassName('ethics-net-active');
-
         current[0].className = current[0].className.replace(
           ' ethics-net-active',
           ''
         );
-        console.log("IN");
-        this.className += ' ethics-net-active';
 
-        node.addEventListener('click', function(event) {
-          event.stopPropagation()
-          event.preventDefault()
-          console.log('Node clicked! -> ', node);
-        })
+        this.className += ' ethics-net-active';
+        this.addEventListener('click', function(event) {
+          event.stopPropagation();
+          event.preventDefault();
+          console.log('this clicked! -> ', this);
+          // Canvas -- >
+          html2canvas(this, {
+            useCORS: true,
+            allowTaint: true,
+            taintTest: false,
+            pagesplit: false,
+            optimized: false,
+          }).then(canvas => {
+            // you may save this as an image to your backend
+            const img = convertCanvasToImage(canvas);
+
+            chrome.runtime.sendMessage(
+              { to: 'cache-image', content: img.src },
+              function(response) {
+                console.log(response);
+              }
+            );
+
+          });
+          // END OF CANVAS <--
+        });
 
         // node.onclick = () => {
         //   console.log('node clicked ->', node);
@@ -340,11 +363,11 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     //       });
     // }
 
-    chrome.runtime.sendMessage({ to: 'cache-image', content: node }, function(
-      response
-    ) {
-      console.log(response);
-    });
+    // chrome.runtime.sendMessage({ to: 'cache-image', content: node }, function(
+    //   response
+    // ) {
+    //   console.log(response);
+    // });
 
     /*
     // Canvas -- >
