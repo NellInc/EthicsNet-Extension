@@ -1,5 +1,5 @@
-const apiURL = 'http://localhost';
-// const apiURL = 'http://167.71.163.123';
+// const apiURL = 'http://localhost';
+const apiURL = 'http://167.71.163.123';
 
 console.log('background');
 
@@ -129,7 +129,7 @@ chrome.contextMenus.onClicked.addListener(function(clickedData) {
     });
 
     setTimeout(() => {
-      var win = window.open('http://localhost:3000/#/image/new', '_blank');
+      var win = window.open('http://extension.lupuselit.me/#/image/new', '_blank');
       win.focus();
     }, 2000);
   }
