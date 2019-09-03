@@ -1,7 +1,5 @@
-// const apiURL = 'http://localhost';
-const apiURL = 'http://167.71.163.123';
-
-console.log('background');
+const apiURL = 'http://localhost';
+// const apiURL = 'http://167.71.163.123';
 
 chrome.storage.sync.get(['userData'], function(result) {
   console.log('Value currently is ->', result);
@@ -26,8 +24,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         font,
         authorId: userId,
       };
-
-      console.log('data -> ', data);
 
       const postData = async () => {
         console.log('API URL ->', apiURL);
@@ -80,27 +76,21 @@ chrome.contextMenus.onClicked.addListener(function(clickedData) {
   if (clickedData.menuItemId === 'ethicsNet') {
     console.log('it is your menu that was clicked!!!');
 
-    // const data = {
-    //   to: 'select-area',
-    //   content: 'select area option was clicked!',
-    // };
+    let url;
 
-    // needs to specify with tab to send the message to!
-    // chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-    //   chrome.tabs.sendMessage(tabs[0].id, data, function(response) {
-    //     console.log(response);
-    //   });
-    // });
+    chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
+      url = tabs[0].url;
+      console.log('URL ->', url);
+    });
 
     chrome.tabs.captureVisibleTab(null, function(img) {
-      console.log(img);
-
       chrome.storage.sync.get(['userData'], function(result) {
         console.log('Value currently is -> ', result);
         const { token, userId } = result.userData;
 
         const data = {
-          cachedImg: img
+          cachedImg: img,
+          imageFont: url
         };
 
         const postData = async () => {
@@ -129,60 +119,14 @@ chrome.contextMenus.onClicked.addListener(function(clickedData) {
     });
 
     setTimeout(() => {
-      var win = window.open('http://extension.lupuselit.me/#/image/new', '_blank');
+      var win = window.open('http://localhost:3000/#/image/new', '_blank');
       win.focus();
-    }, 2000);
+    }, 200);
+
+    // setTimeout(() => {
+    //   var win = window.open('http://extension.lupuselit.me/#/image/new', '_blank');
+    //   win.focus();
+    // }, 2000);
   }
 });
 
-// chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-//   if (request.to === 'cache-image') {
-//     console.log(request);
-//     sendResponse('got it, thanks!');
-
-//     chrome.storage.sync.get(['userData'], function(result) {
-//       console.log('Value currently is -> ', result);
-
-//       const { content } = request;
-//       const { token, userId } = result.userData;
-
-//       const data = {
-//         cachedImg: request.content,
-//       };
-
-//       const postData = async () => {
-//         try {
-//           const response = await fetch(`${apiURL}/api/user/image/${userId}`, {
-//             method: 'PUT',
-//             mode: 'cors',
-//             cache: 'no-cache',
-//             creadentials: 'same-origin',
-//             headers: {
-//               'Content-Type': 'application/json',
-//               Authorization: `Bearer ${token}`,
-//             },
-//             redirect: 'follow',
-//             referrer: 'no-referrer',
-//             body: JSON.stringify(data),
-//           });
-
-//           const responseData = await response.json();
-//           console.log(responseData);
-//         } catch (e) {}
-//       };
-
-//       postData();
-//     });
-//   }
-// });
-
-// // Called when the user clicks on the browser action.
-// chrome.browserAction.onClicked.addListener(function(tab) {
-//   // Send a message to the active tab
-//   chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-//     let activeTab = tabs[0];
-//     chrome.tabs.sendMessage(activeTab.id, {
-//       message: 'hello worldddd!',
-//     });
-//   });
-// });
