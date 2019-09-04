@@ -28,6 +28,7 @@
       </div>
     </div>
 
+    <!-- User is logged -->
     <div class="wrapper user-info">
       <p class="welcome"></p>
 
@@ -39,7 +40,24 @@
       >
         LOGOUT
       </a>
-      <!-- </button> -->
+
+      <hr >
+
+      <h3 class="video-title">Video Annotation</h3>
+
+      <div class="video-wrapper">
+        <form>
+          <div class="form-group">
+            <label for="videoStart">Start Timestamp</label>
+            <input type="text" class="form-control" id="videoStart" aria-describedby="StartTimestamp" placeholder="Start Timestamp">
+          </div>
+          <div class="form-group">
+            <label for="videoEnd">End Timestamp</label>
+            <input type="text" class="form-control" id="videoEnd" placeholder="End Timestamp">
+          </div>
+          <button type="submit" class="btn btn-primary">Save video</button>
+        </form>
+      </div>
     </div>
 
     <script src="./popup.js"></script>

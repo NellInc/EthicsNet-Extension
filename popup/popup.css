@@ -3,21 +3,41 @@
   margin: 0;
 }
 
+html {
+  border-radius: 5px;
+}
+
 body {
-  background-color: rgb(254, 255, 247);
+  background-color: rgba(247, 247, 247, 0.24);
 }
 
 h1 {
   font-size: 25px;
 }
 
+hr {
+  background-color: #ddd;
+}
+
+.video-title {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 20px;
+}
+
 .wrapper {
   padding: 20px;
   width: 350px;
-  height: 300px;
+  height: 500px;
   text-align: center;
 }
 
 .user-info {
   display: none;
+}
+
+.video-wrapper {
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 5px;
 }

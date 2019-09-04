@@ -2,6 +2,11 @@ console.log('I rannnn ... im popup :DD');
 
 console.log(window.location);
 
+chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
+  url = tabs[0].url;
+  console.log('URL ->', url);
+});
+
 chrome.storage.sync.get(['userData'], function(result) {
   console.log('userdata ->', result.userData);
 
