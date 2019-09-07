@@ -2,10 +2,10 @@ console.log('I rannnn ... im popup :DD');
 
 console.log(window.location);
 
-chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
-  url = tabs[0].url;
-  console.log('URL ->', url);
-});
+// chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
+//   url = tabs[0].url;
+//   console.log('URL ->', url);
+// });
 
 chrome.storage.sync.get(['userData'], function(result) {
   console.log('userdata ->', result.userData);
@@ -28,6 +28,20 @@ chrome.storage.sync.get(['userData'], function(result) {
 });
 
 const logout = document.querySelector('.logout');
+
+function addMask(input) {
+  input.onkeyup = () => {
+    input.value = input.value.replace(/(\d{2})(\d{2})/,"$1:$2");
+  }
+}
+
+addMask(document.querySelector('#videoStart'));
+addMask( document.querySelector('#videoEnd'))
+
+// function handleSubmit(e) {
+//   e.preventDefault();
+//   console.log('submitting!');
+// }
 
 // logout.onclick = () => {
 //   chrome.storage.sync.remove('userData', function(){

@@ -41,21 +41,51 @@
         LOGOUT
       </a>
 
-      <hr >
+      <hr />
 
       <h3 class="video-title">Video Annotation</h3>
 
       <div class="video-wrapper">
         <form>
           <div class="form-group">
+            <label for="videoUrl">Video URL</label>
+            <input
+              type="text"
+              class="form-control"
+              id="videoUrl"
+              placeholder="Video URL"
+            />
+          </div>
+          <div class="form-group">
             <label for="videoStart">Start Timestamp</label>
-            <input type="text" class="form-control" id="videoStart" aria-describedby="StartTimestamp" placeholder="Start Timestamp">
+            <input
+              type="text"
+              maxlength="5"
+              class="form-control"
+              id="videoStart"
+              aria-describedby="StartTimestamp"
+              placeholder="mm:ss"
+            />
           </div>
           <div class="form-group">
             <label for="videoEnd">End Timestamp</label>
-            <input type="text" class="form-control" id="videoEnd" placeholder="End Timestamp">
+            <input
+              maxlength="5"
+              type="text"
+              class="form-control"
+              id="videoEnd"
+              placeholder="mm:ss"
+            />
           </div>
-          <button type="submit" class="btn btn-primary">Save video</button>
+
+          <script unsafe-inline>
+            function handleSubmit(e) {
+              console.log('submitting');
+              
+            }
+          </script>
+
+          <button onclick="handleSubmit(e)" type="submit" class="btn btn-primary">Save video</button>
         </form>
       </div>
     </div>
