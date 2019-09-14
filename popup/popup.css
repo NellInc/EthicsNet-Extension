@@ -41,3 +41,11 @@ hr {
   padding: 10px;
   border-radius: 5px;
 }
+
+#submit-video {
+  color: #fff;
+}
+
+#submit-video:hover {
+  cursor: pointer;
+}

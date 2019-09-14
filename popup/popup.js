@@ -31,12 +31,52 @@ const logout = document.querySelector('.logout');
 
 function addMask(input) {
   input.onkeyup = () => {
-    input.value = input.value.replace(/(\d{2})(\d{2})/,"$1:$2");
-  }
+    input.value = input.value.replace(/(\d{2})(\d{2})/, '$1:$2');
+  };
 }
 
 addMask(document.querySelector('#videoStart'));
-addMask( document.querySelector('#videoEnd'))
+addMask(document.querySelector('#videoEnd'));
+
+chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
+  url = tabs[0].url;
+  console.log('URL ->', url);
+
+  document.querySelector('#videoUrl').value = url;
+});
+
+function handleSubmit(e) {
+  // e.preventDefault();
+  console.log(e);
+  
+  console.log('clickinggg!');
+
+
+
+  const videoUrl = document.querySelector('#videoUrl').value;
+
+  const videoStart = document.querySelector('#videoStart').value;
+  const videoEnd = document.querySelector('#videoEnd').value;
+
+  console.log('Info -> ', videoUrl, videoStart, videoEnd);
+
+  if (videoUrl === '' || videoStart === '' || videoEnd === '') {
+    alert('fill all the fields before submitting!')
+    return;
+  }
+
+  // send a message to the background with the data to be saved
+}
+
+// Assign an ID to the link (<a onClick=hellYeah("xxx")> becomes <a id="link">), and use addEventListener to bind the event. Put the following in your popup.js file:
+
+document.addEventListener('DOMContentLoaded', function() {
+  var link = document.getElementById('submit-video');
+  // onClick's logic below:
+  link.addEventListener('click', function() {
+    handleSubmit('xxx');
+  });
+});
 
 // function handleSubmit(e) {
 //   e.preventDefault();

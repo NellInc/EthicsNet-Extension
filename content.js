@@ -1,5 +1,8 @@
 const authURL = 'http://extension.lupuselit.me/#/';
 
+console.log(document.getElementsByTagName('video')[0].currentTime);
+
+
 window.onload = () => {
   // const elementToInsert = document.createElement('div');
   //
