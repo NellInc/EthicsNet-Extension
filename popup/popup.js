@@ -1,12 +1,5 @@
 console.log('I rannnn ... im popup :DD');
 
-console.log(window.location);
-
-// chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
-//   url = tabs[0].url;
-//   console.log('URL ->', url);
-// });
-
 chrome.storage.sync.get(['userData'], function(result) {
   console.log('userdata ->', result.userData);
 
@@ -46,13 +39,6 @@ chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
 });
 
 function handleSubmit(e) {
-  // e.preventDefault();
-  console.log(e);
-  
-  console.log('clickinggg!');
-
-
-
   const videoUrl = document.querySelector('#videoUrl').value;
 
   const videoStart = document.querySelector('#videoStart').value;
@@ -64,6 +50,17 @@ function handleSubmit(e) {
     alert('fill all the fields before submitting!')
     return;
   }
+
+  const data = {
+    to: 'video-annotation',
+    videoUrl,
+    videoStart,
+    videoEnd,
+  }
+
+  chrome.runtime.sendMessage(data, function(response) {
+    console.log(response);
+  });
 
   // send a message to the background with the data to be saved
 }
@@ -77,19 +74,3 @@ document.addEventListener('DOMContentLoaded', function() {
     handleSubmit('xxx');
   });
 });
-
-// function handleSubmit(e) {
-//   e.preventDefault();
-//   console.log('submitting!');
-// }
-
-// logout.onclick = () => {
-//   chrome.storage.sync.remove('userData', function(){
-//     // alert('Item deleted!');
-//     logout.innerHTML = '<a href="http://localhost:3000/login" target="_blank" style="color: #fff;">login</a>';
-//
-//     // logout.setAttribute('href', 'http://localhost:3000/login')
-//     // logout.setAttribute('target', '_blank')
-//     // localtion.reload()
-// });
-// }
