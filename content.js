@@ -1,19 +1,9 @@
 const authURL = 'http://extension.lupuselit.me/#/';
 
-console.log(document.getElementsByTagName('video')[0].currentTime);
+// console.log(document.getElementsByTagName('video')[0].currentTime);
 
 
 window.onload = () => {
-  // const elementToInsert = document.createElement('div');
-  //
-  // elementToInsert.innerHTML = `
-  //   <div id="capture" style="padding: 10px; background: #f5da55">
-  //     <h4 style="color: #000; ">Hello world!</h4>
-  //   </div>
-  // `
-  //
-  // document.body.appendChild(elementToInsert)
-
   // //
   // injects the toolbar
   const toolbarWrapper = document.createElement('div');
@@ -56,7 +46,6 @@ window.onload = () => {
   });
 
   window.addEventListener('mousedown', function() {
-    console.log('down');
     // this is to allow the button to be clicked
     setTimeout(() => {
       ele.style.display = 'none';
@@ -252,7 +241,6 @@ window.onload = () => {
       console.log('you are logged out!!');
     });
   }
-
   // END OF WINDOW.ONLOAD
 };
 
@@ -262,194 +250,7 @@ function convertCanvasToImage(canvas) {
   return image;
 }
 
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-  console.log('request for the button click!', request.to);
-  if (request.to === 'select-area') {
-
-    // chrome.tabs.captureVisibleTab(null, function(img) {
-    //   console.log('APPENDING IMAGE!!!');
-    //   const el = document.createElement('img');
-    //   el.src = img;
-    //   document.body.appendChild(el);
-    // })
-    // sendResponse('got it from the background!');
-    // // write your code here...
-    // document.body.style.cursor = 'crosshair';
-
-    // async function getScreenshot() {
-    //   const captureStream = await navigator.mediaDevices.getDisplayMedia();
-
-
-    //   console.log(captureStream);
-
-
-    //   const el = document.createElement('img');
-    //   el.src = captureStream;
-
-    //   document.body.appendChild(el);
-
-    // }
-
-    // getScreenshot();
-
-    /*
-    var node = document.querySelector('body');
-    const styles = document.createElement('div');
-    styles.innerHTML = `
-      <style>
-        .ethics-net-active {
-          border: 1px solid red;
-        }
-      </style>
-    `;
-    node.appendChild(styles);
-
-    document.querySelectorAll('*').forEach(function(node) {
-      node.addEventListener('mouseover', function(event) {
-        event.stopPropagation();
-
-        var current = document.getElementsByClassName('ethics-net-active');
-        current[0].className = current[0].className.replace(
-          ' ethics-net-active',
-          ''
-        );
-
-        this.className += ' ethics-net-active';
-        this.addEventListener('click', function(event) {
-          event.stopPropagation();
-          event.preventDefault();
-          console.log('this clicked! -> ', this);
-          // Canvas -- >
-          html2canvas(this, {
-            useCORS: true,
-            allowTaint: true,
-            taintTest: false,
-            pagesplit: false,
-            optimized: false,
-          }).then(canvas => {
-            // you may save this as an image to your backend
-            const img = convertCanvasToImage(canvas);
-
-            chrome.runtime.sendMessage(
-              { to: 'cache-image', content: img.src },
-              function(response) {
-                console.log(response);
-              }
-            );
-
-          });
-          // END OF CANVAS <--
-        });
-
-        // node.onclick = () => {
-        //   console.log('node clicked ->', node);
-        // }
-
-        // var current = document.getElementsByClassName('ethics-net-active');
-
-        // current[length - 1].className = current[length - 1].className.replace(
-        //   ' ethics-net-active',
-        //   ''
-        // );
-        // console.log("IN");
-        // this.className += ' ethics-net-active';
-      });
-    });
-
-    // for (var i = 0, max = all.length; i < max; i++) {
-    //     // Do something with the element here
-    //     all[i].addEventListener("mouseover", function() {
-    //       console.log('CLICKED!!');
-    //       var current = document.getElementsByClassName("ethics-net-active");
-    //       current[0].className = current[0].className.replace(" ethics-net-active", "");
-    //       this.className += " ethics-net-active";
-    //       });
-    // }
-
-    // chrome.runtime.sendMessage({ to: 'cache-image', content: node }, function(
-    //   response
-    // ) {
-    //   console.log(response);
-    // });
-
-    /*
-    // Canvas -- >
-    html2canvas(
-      document.querySelector('body'),
-      {
-        useCORS: true,
-        allowTaint: true,
-        taintTest: false,
-        pagesplit: false,
-        optimized: false
-      })
-      .then(canvas => {
-      console.log('canvas -> ', canvas);
-      // you may save this as an image to your backend
-      const img = convertCanvasToImage(canvas);
-
-      // console.log('img ->', img);
-      // console.log('img src ->', img.src);
-
-      chrome.runtime.sendMessage(
-        { to: 'cache-image', content: img.src },
-        function(response) {
-          console.log(response);
-        }
-      );
-
-      // document.body.appendChild(img);
-      // document.body.appendChild(canvas);
-    });
-    // END OF CANVAS <--
-    */
-  }
-});
-
 // Reset the cursor to its default state
 window.onmouseup = () => {
-  console.log('mouse up');
   document.body.style.cursor = 'default';
 };
-
-// window.onmousemove = () => {
-//   // console.log('moving');
-//   // var x = event.clientX;     // Get the horizontal coordinate
-//   // var y = event.clientY;     // Get the vertical coordinate
-//   // var coor = "X coords: " + x + ", Y coords: " + y;
-//   // console.log(coor);
-// }
-//
-// window.onload = () => {
-//   const btn = document.querySelector('.screenshot');
-//
-//   btn.onclick = () => {
-//     setTimeout(() => {
-//       let canvas = document.querySelector('.ethics-net-canvas');
-//       let context = canvas.getContext("2d");
-//       let height = canvas.height = window.innerHeight;
-//       let width = canvas.width = window.innerWidth;
-//
-//       let mouseClicked = false, mouseReleased = true;
-//
-//       document.addEventListener('click', onMouseClick, false);
-//       document.addEventListener('mousemove', onMouseMove, false);
-//
-//       function onMouseClick(e) {
-//         mouseClicked = !mouseClicked;
-//       }
-//
-//       function onMouseMove(e) {
-//         if (mouseClicked) {
-//           context.beginPath();
-//           context.arc(e.clientX, e.clientY, 2, 1, Math.PI * 2, true);
-//           context.lineWidth = 5;
-//           context.strokeStyle = '#000';
-//           context.stroke();
-//         }
-//       }
-//     }, 2000)
-//   }
-// }
-
-//
