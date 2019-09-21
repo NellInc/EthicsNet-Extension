@@ -1,7 +1,5 @@
 console.log('I rannnn ... im popup :DD');
 
-console.log(window.location);
-
 chrome.storage.sync.get(['userData'], function(result) {
   console.log('userdata ->', result.userData);
 
@@ -24,13 +22,55 @@ chrome.storage.sync.get(['userData'], function(result) {
 
 const logout = document.querySelector('.logout');
 
-// logout.onclick = () => {
-//   chrome.storage.sync.remove('userData', function(){
-//     // alert('Item deleted!');
-//     logout.innerHTML = '<a href="http://localhost:3000/login" target="_blank" style="color: #fff;">login</a>';
-//
-//     // logout.setAttribute('href', 'http://localhost:3000/login')
-//     // logout.setAttribute('target', '_blank')
-//     // localtion.reload()
-// });
-// }
+function addMask(input) {
+  input.onkeyup = () => {
+    input.value = input.value.replace(/(\d{2})(\d{2})/, '$1:$2');
+  };
+}
+
+addMask(document.querySelector('#videoStart'));
+addMask(document.querySelector('#videoEnd'));
+
+chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
+  url = tabs[0].url;
+  console.log('URL ->', url);
+
+  document.querySelector('#videoUrl').value = url;
+});
+
+function handleSubmit(e) {
+  const videoUrl = document.querySelector('#videoUrl').value;
+
+  const videoStart = document.querySelector('#videoStart').value;
+  const videoEnd = document.querySelector('#videoEnd').value;
+
+  console.log('Info -> ', videoUrl, videoStart, videoEnd);
+
+  if (videoUrl === '' || videoStart === '' || videoEnd === '') {
+    alert('fill all the fields before submitting!')
+    return;
+  }
+
+  const data = {
+    to: 'video-annotation',
+    videoUrl,
+    videoStart,
+    videoEnd,
+  }
+
+  chrome.runtime.sendMessage(data, function(response) {
+    console.log(response);
+  });
+
+  // send a message to the background with the data to be saved
+}
+
+// Assign an ID to the link (<a onClick=hellYeah("xxx")> becomes <a id="link">), and use addEventListener to bind the event. Put the following in your popup.js file:
+
+document.addEventListener('DOMContentLoaded', function() {
+  var link = document.getElementById('submit-video');
+  // onClick's logic below:
+  link.addEventListener('click', function() {
+    handleSubmit('xxx');
+  });
+});
