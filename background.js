@@ -1,5 +1,7 @@
 const apiURL = 'http://localhost';
 // const apiURL = 'http://167.71.163.123';
+const frontend = 'http://localhost:3000/#/';
+// const frontend = 'http://extension.lupuselit.me/#/'
 
 chrome.storage.sync.get(['userData'], function(result) {
   console.log('Value currently is ->', result);
@@ -78,7 +80,9 @@ chrome.contextMenus.onClicked.addListener(function(clickedData) {
 
     let url;
 
-    chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
+    chrome.tabs.query({ active: true, lastFocusedWindow: true }, function(
+      tabs
+    ) {
       url = tabs[0].url;
       console.log('URL ->', url);
     });
@@ -90,7 +94,7 @@ chrome.contextMenus.onClicked.addListener(function(clickedData) {
 
         const data = {
           cachedImg: img,
-          imageFont: url
+          imageFont: url,
         };
 
         const postData = async () => {
@@ -119,7 +123,7 @@ chrome.contextMenus.onClicked.addListener(function(clickedData) {
     });
 
     setTimeout(() => {
-      var win = window.open('http://localhost:3000/#/image/new', '_blank');
+      var win = window.open(frontend + 'image/new', '_blank');
       win.focus();
     }, 200);
 
@@ -130,3 +134,54 @@ chrome.contextMenus.onClicked.addListener(function(clickedData) {
   }
 });
 
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+  if (request.to === 'video-annotation') {
+    console.log('Video Annotation -> ', request);
+
+    sendResponse({ text: 'video annotation on background' });
+
+    chrome.storage.sync.get(['userData'], function(result) {
+      console.log('Value currently is -> ', result);
+      const { token, userId } = result.userData;
+
+      const { description, videoUrl, videoStart, videoEnd, title } = request;
+
+      const data = {
+        title,
+        description,
+        videoUrl,
+        videoStart,
+        videoEnd,
+        authorId: userId,
+      };
+
+      const postData = async () => {
+        try {
+          const response = await fetch(`${apiURL}/api/video`, {
+            method: 'POST',
+            mode: 'cors',
+            cache: 'no-cache',
+            creadentials: 'same-origin',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`,
+            },
+            redirect: 'follow',
+            referrer: 'no-referrer',
+            body: JSON.stringify(data),
+          });
+
+          const responseData = await response.json();
+          console.log(responseData);
+        } catch (e) {}
+      };
+
+      postData();
+    });
+
+    setTimeout(() => {
+      var win = window.open(frontend + 'user/videos', '_blank');
+      win.focus();
+    }, 200);
+  }
+});
