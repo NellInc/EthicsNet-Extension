@@ -40,6 +40,11 @@ hr {
   border: 1px solid #ddd;
   padding: 10px;
   border-radius: 5px;
+  display: none;
+}
+
+.logout-wrapper {
+  display: block;
 }
 
 #submit-video {

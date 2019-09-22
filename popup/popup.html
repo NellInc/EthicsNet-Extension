@@ -30,22 +30,25 @@
 
     <!-- User is logged -->
     <div class="wrapper user-info">
-      <p class="welcome"></p>
+      <div class="logout-wrapper">
+        <p class="welcome"></p>
+        <a
+          class="btn btn-primary"
+          href="http://extension.lupuselit.me/#/logged-out"
+          target="_blank"
+        >
+          LOGOUT
+        </a>
 
-      <!-- <button type="button" name="button" class="btn btn-primary logout"> -->
-      <a
-        class="btn btn-primary"
-        href="http://extension.lupuselit.me/#/logged-out"
-        target="_blank"
-      >
-        LOGOUT
-      </a>
+        <hr />
+      </div>
 
-      <hr />
-
-      <h3 class="video-title">Video Annotation</h3>
+      <div class="show-video-annotation">
+        <button class="btn btn-secondary annotate-video">Annotate video</button>
+      </div>
 
       <div class="video-wrapper">
+        <h3 class="video-title">Video Annotation</h3>
         <div class="form-group">
           <label for="videoUrl">Video URL</label>
           <input
@@ -81,27 +84,25 @@
           />
         </div>
 
-        <!-- <div class="form-group">
+        <div class="form-group">
           <label for="videoUrl">Video Title</label>
           <input
             required
             type="text"
             class="form-control"
-            id="videoUrl"
-            placeholder="Video URL"
+            id="videoTitle"
+            placeholder="Video title"
           />
         </div>
 
         <div class="form-group">
           <label for="videoUrl">Video Description</label>
-          <input
-            required
-            type="text"
+          <textarea
             class="form-control"
-            id="videoUrl"
-            placeholder="Video URL"
-          />
-        </div> -->
+            id="videoDescription"
+            rows="3"
+          ></textarea>
+        </div>
 
         <a id="submit-video" class="btn btn-primary">Save video</a>
       </div>
