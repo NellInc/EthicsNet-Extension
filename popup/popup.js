@@ -23,14 +23,14 @@ chrome.storage.sync.get(['userData'], function(result) {
 const logout = document.querySelector('.logout');
 
 if (document.querySelector('.video-wrapper')) {
-  function addMask(input) {
-    input.onkeyup = () => {
-      input.value = input.value.replace(/(\d{2})(\d{2})/, '$1:$2');
-    };
-  }
+  // function addMask(input) {
+  //   input.onkeyup = () => {
+  //     input.value = input.value.replace(/(\d{2})(\d{2})/, '$1:$2');
+  //   };
+  // }
 
-  addMask(document.querySelector('#videoStart'));
-  addMask(document.querySelector('#videoEnd'));
+  // addMask(document.querySelector('#videoStart'));
+  // addMask(document.querySelector('#videoEnd'));
 
   chrome.tabs.query({ active: true, lastFocusedWindow: true }, function(tabs) {
     url = tabs[0].url;
@@ -40,19 +40,15 @@ if (document.querySelector('.video-wrapper')) {
   });
 
   function handleSubmit(e) {
-    const videoUrl = document.querySelector('#videoUrl').value;
-    const videoStart = document.querySelector('#videoStart').value;
-    const videoEnd = document.querySelector('#videoEnd').value;
-    const description = document.querySelector('#videoDescription').value;
-    const title = document.querySelector('#videoTitle').value;
 
-    if (
-      videoUrl === '' ||
-      videoStart === '' ||
-      videoEnd === '' ||
-      title === '' ||
-      description === ''
-    ) {
+    const videoUrl = document.querySelector('#videoUrl').value;
+
+    // const videoStart = document.querySelector('#videoStart').value;
+    // const videoEnd = document.querySelector('#videoEnd').value;
+    // const description = document.querySelector('#videoDescription').value;
+    // const title = document.querySelector('#videoTitle').value;
+
+    if (videoUrl === '') {
       alert('fill all the fields before submitting!');
       return;
     }
@@ -60,15 +56,12 @@ if (document.querySelector('.video-wrapper')) {
     const data = {
       to: 'video-annotation',
       videoUrl,
-      videoStart,
-      videoEnd,
-      description,
-      title,
     };
 
     chrome.runtime.sendMessage(data, function(response) {
       console.log(response);
     });
+    
     // send a message to the background with the data to be saved
   }
 

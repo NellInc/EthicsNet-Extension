@@ -137,31 +137,23 @@ chrome.contextMenus.onClicked.addListener(function(clickedData) {
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   if (request.to === 'video-annotation') {
     console.log('Video Annotation -> ', request);
-
     sendResponse({ text: 'video annotation on background' });
-
     chrome.storage.sync.get(['userData'], function(result) {
       console.log('Value currently is -> ', result);
       const { token, userId } = result.userData;
-
-      const { description, videoUrl, videoStart, videoEnd, title, } = request;
+      const { videoUrl } = request;
 
       const data = {
-        title,
-        description,
-        videoUrl,
-        videoStart,
-        videoEnd,
-        authorId: userId,
+        cachedVideo: videoUrl,
       };
 
       const postData = async () => {
         try {
-          const response = await fetch(`${apiURL}/api/video`, {
-            method: 'POST',
+          const response = await fetch(`${apiURL}/api/user/video/${userId}`, {
+            method: 'PUT',
             mode: 'cors',
             cache: 'no-cache',
-            creadentials: 'same-origin',
+            credentials: 'same-origin',
             headers: {
               'Content-Type': 'application/json',
               Authorization: `Bearer ${token}`,
@@ -173,14 +165,16 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
           const responseData = await response.json();
           console.log(responseData);
-        } catch (e) {}
-      };
-
+          
+        } catch (error) {
+          console.log(error);
+        }
+      }
       postData();
     });
 
     setTimeout(() => {
-      var win = window.open(frontend + 'user/videos', '_blank');
+      var win = window.open(frontend + 'video/save', '_blank');
       win.focus();
     }, 200);
   }
