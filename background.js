@@ -1,6 +1,7 @@
 const apiURL = 'http://localhost';
-// const apiURL = 'http://167.71.163.123';
 const frontend = 'http://localhost:3000/#/';
+
+// const apiURL = 'http://167.71.163.123';
 // const frontend = 'http://extension.lupuselit.me/#/'
 
 chrome.storage.sync.get(['userData'], function(result) {
