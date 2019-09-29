@@ -194,6 +194,12 @@ window.onload = () => {
   if (
     document.URL === authURL ||
     document.URL === 'http://localhost:3000/#/' ||
+    document.URL === 'http://localhost:3000/#/login' ||
+    document.URL === 'http://localhost:3000/#/register' ||
+    document.URL === 'http://extension.lupuselit.me/#/login' ||
+    document.URL === 'http://extension.lupuselit.me/#/register' ||
+    document.URL === 'http://extension.lupuselit.me/#/login/' ||
+    document.URL === 'http://extension.lupuselit.me/#/register/' ||
     document.URL === 'http://extension.lupuselit.me' ||
     document.URL === 'http://extension.lupuselit.me/'
   ) {
