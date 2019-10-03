@@ -98,6 +98,10 @@ chrome.contextMenus.onClicked.addListener(function(clickedData) {
           imageFont: url,
         };
 
+        console.log('====================================');
+        console.log(data.cachedImg);
+        console.log('====================================');
+
         const postData = async () => {
           try {
             const response = await fetch(`${apiURL}/api/user/image/${userId}`, {
@@ -116,7 +120,9 @@ chrome.contextMenus.onClicked.addListener(function(clickedData) {
 
             const responseData = await response.json();
             console.log(responseData);
-          } catch (e) {}
+          } catch (error) {
+            console.log(error);
+          }
         };
 
         postData();
@@ -166,11 +172,10 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
           const responseData = await response.json();
           console.log(responseData);
-          
         } catch (error) {
           console.log(error);
         }
-      }
+      };
       postData();
     });
 
@@ -178,5 +183,59 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
       var win = window.open(frontend + 'video/save', '_blank');
       win.focus();
     }, 200);
+  }
+});
+
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+  console.log(
+    sender.tab
+      ? 'from a content script:' + sender.tab.url
+      : 'from the extension'
+  );
+  if (request.to == 'select-person') {
+    console.log('message from the select person button! -> ', request);
+
+    chrome.tabs.captureVisibleTab(null, function(img) {
+      chrome.storage.sync.get(['userData'], function(result) {
+        console.log('Value currently is -> ', result);
+        const { token, userId } = result.userData;
+
+        const data = {
+          cachedImg: img,
+          // imageFont: url,
+        };
+
+        console.log('====================================');
+        console.log('screenshot from select person -> ', img);
+        console.log('====================================');
+
+        // const postData = async () => {
+        //   try {
+        //     const response = await fetch(`${apiURL}/api/user/image/${userId}`, {
+        //       method: 'PUT',
+        //       mode: 'cors',
+        //       cache: 'no-cache',
+        //       creadentials: 'same-origin',
+        //       headers: {
+        //         'Content-Type': 'application/json',
+        //         Authorization: `Bearer ${token}`,
+        //       },
+        //       redirect: 'follow',
+        //       referrer: 'no-referrer',
+        //       body: JSON.stringify(data),
+        //     });
+
+        //     const responseData = await response.json();
+        //     console.log(responseData);
+        //   } catch (error) {
+        //     console.log(error);
+        //   }
+        // };
+
+        // postData();
+      });
+    });
+
+    sendResponse({ msg: 'select person got the message!' });
   }
 });

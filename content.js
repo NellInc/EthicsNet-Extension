@@ -1,7 +1,33 @@
+// TODO: select this button and listen for click events
+// document.querySelector('[data-extension]')
+
 const authURL = 'http://extension.lupuselit.me/#/';
 
-// console.log(document.getElementsByTagName('video')[0].currentTime);
+window.onhashchange = function() {
+  if (
+    window.location.href === 'http://localhost:3000/#/save-video-action' ||
+    window.location.href === authURL + 'save-video-action'
+  ) {
+    const selectPerson = document.querySelector('[data-extension-person]');
+    console.log('select person -> ', selectPerson);
 
+    // If the button was clicked... do send a message to the background to
+    // capture the screen
+    selectPerson.onclick = () => {
+      console.log('select person was clicked! ');
+
+      const data = {
+        to: 'select-person',
+      };
+
+      chrome.runtime.sendMessage(data, function(response) {
+        console.log(response);
+      });
+    };
+  }
+};
+
+// console.log(document.getElementsByTagName('video')[0].currentTime);
 
 window.onload = () => {
   // //
