@@ -27,6 +27,23 @@ window.onhashchange = function() {
   }
 };
 
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+  console.log(
+    sender.tab
+      ? 'from a content script:' + sender.tab.url
+      : 'from the extension'
+  );
+  if (request.to === 'select-person-screenshot') {
+    console.log('====================================');
+    console.log('request to select person -> ', request);
+    console.log('====================================');
+
+    sendResponse({ msg: 'vlw men!' });
+
+    localStorage.selectPersonImage = request.img;
+  }
+});
+
 // console.log(document.getElementsByTagName('video')[0].currentTime);
 
 window.onload = () => {

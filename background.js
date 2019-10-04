@@ -201,13 +201,19 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         const { token, userId } = result.userData;
 
         const data = {
-          cachedImg: img,
-          // imageFont: url,
+          to: 'select-person-screenshot',
+          img,
         };
 
         console.log('====================================');
         console.log('screenshot from select person -> ', img);
         console.log('====================================');
+
+        chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+          chrome.tabs.sendMessage(tabs[0].id, data, function(response) {
+            console.log('response to select-person-screenshot ->', response);
+          });
+        });
 
         // const postData = async () => {
         //   try {
