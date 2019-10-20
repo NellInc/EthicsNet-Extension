@@ -1,8 +1,8 @@
-const apiURL = 'http://localhost';
-const frontend = 'http://localhost:3000/#/';
+// const apiURL = 'http://localhost';
+// const frontend = 'http://localhost:3000/#/';
 
-// const apiURL = 'http://167.71.163.123';
-// const frontend = 'http://extension.lupuselit.me/#/'
+const apiURL = 'http://167.71.163.123';
+const frontend = 'http://extension.lupuselit.me/#/'
 
 chrome.runtime.onInstalled.addListener(function() {
   chrome.tabs.create({

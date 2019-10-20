@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "EthicsNet",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
