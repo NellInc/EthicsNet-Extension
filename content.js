@@ -8,22 +8,25 @@ window.onhashchange = function() {
     window.location.href === 'http://localhost:3000/#/save-video-action' ||
     window.location.href === authURL + 'save-video-action'
   ) {
-    const selectPerson = document.querySelector('[data-extension-person]');
-    console.log('select person -> ', selectPerson);
+    setTimeout(() => {
+      const selectPerson = document.querySelector('[data-extension-person]');
 
-    // If the button was clicked... do send a message to the background to
-    // capture the screen
-    selectPerson.onclick = () => {
-      console.log('select person was clicked! ');
+      console.log('select person -> ', selectPerson);
 
-      const data = {
-        to: 'select-person',
+      // If the button was clicked... do send a message to the background to
+      // capture the screen
+      selectPerson.onclick = () => {
+        console.log('select person was clicked! ');
+
+        const data = {
+          to: 'select-person',
+        };
+
+        chrome.runtime.sendMessage(data, function(response) {
+          console.log(response);
+        });
       };
-
-      chrome.runtime.sendMessage(data, function(response) {
-        console.log(response);
-      });
-    };
+    }, 1000);
   }
 };
 

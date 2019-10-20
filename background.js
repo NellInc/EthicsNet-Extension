@@ -4,6 +4,15 @@ const frontend = 'http://localhost:3000/#/';
 // const apiURL = 'http://167.71.163.123';
 // const frontend = 'http://extension.lupuselit.me/#/'
 
+chrome.runtime.onInstalled.addListener(function() {
+  chrome.tabs.create({
+    url: 'http://extension.lupuselit.me/#/eula',
+    active: true
+  });
+
+  return false;
+});
+
 chrome.storage.sync.get(['userData'], function(result) {
   console.log('Value currently is ->', result);
 });
