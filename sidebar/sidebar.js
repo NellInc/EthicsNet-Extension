@@ -79,6 +79,7 @@ chrome.storage.sync.get(['userData'], function(result) {
         1: 'morally unpreferable',
         2: 'aesthetically preferable',
         3: 'aesthetically unpreferable',
+        4: 'not unethical, but strange',
       };
 
       const category = document.querySelector('#category');
