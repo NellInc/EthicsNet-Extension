@@ -82,6 +82,18 @@ const contextMenuItem = {
   contexts: ['page'],
 };
 
+
+// chrome.contextMenus.create({
+//   title: "Test %s menu item", 
+//   contexts:["selection"], 
+//   onclick: function(info, tab) {
+//       // sendSearch(info.selectionText);
+//       console.log('====================================');
+//       console.log('context menu was clicked!!');
+//       console.log('====================================');
+//   }
+// });
+
 chrome.contextMenus.create(contextMenuItem);
 
 chrome.contextMenus.onClicked.addListener(function(clickedData) {
