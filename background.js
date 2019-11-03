@@ -1,8 +1,8 @@
-// const apiURL = 'http://localhost';
-// const frontend = 'http://localhost:3000/#/';
+const apiURL = 'http://localhost';
+const frontend = 'http://localhost:3000/#/';
 
-const apiURL = 'http://167.71.163.123';
-const frontend = 'http://extension.lupuselit.me/#/'
+// const apiURL = 'http://167.71.163.123';
+// const frontend = 'http://extension.lupuselit.me/#/'
 
 chrome.runtime.onInstalled.addListener(function() {
   chrome.tabs.create({
@@ -40,7 +40,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
       const postData = async () => {
         console.log('API URL ->', apiURL);
         try {
-          const response = await fetch(`${apiURL}/api/post-text`, {
+          const response = await fetch(`${apiURL}/api2/text`, {
             method: 'POST',
             mode: 'cors',
             cache: 'no-cache',

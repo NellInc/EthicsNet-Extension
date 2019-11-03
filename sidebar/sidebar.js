@@ -17,8 +17,6 @@ chrome.storage.sync.get(['userData'], function(result) {
   console.log('userdata ->', result.userData);
   if (!result.userData) {
     toSubmit.innerHTML = `
-
-
       <div style="display: flex; flex-direction: column; align-items: center;">
         <div>
           you need to login first to make any anotations
