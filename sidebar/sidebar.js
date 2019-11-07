@@ -119,21 +119,37 @@ chrome.storage.sync.get(['userData'], function(result) {
         sendResponse({ message: 'we got the message!!' });
         console.log('API CALL MADE');
 
-        toSubmit.innerHTML = `
+        if (request.content.error) {
+          toSubmit.innerHTML = `
           <div class="">
-            <p>Anotation saved</p>
-            <p class="text-saved">${request.content.textCreated.content}</p>
-            <button class="btn btn-primary"><a style="color: #fff;" href="${apiURL}/profile/anotations" target="_blank">see all</a></button>
-            <button class="btn btn-secondary new-anotation">new anotation</button>
+            <p>there was an error</p>
+            <p>please log out and log in again ...</p>
+             <a
+              class="btn btn-primary"
+              href="http://extension.lupuselit.me/#/logged-out"
+              target="_blank"
+            >
+              LOGOUT
+            </a>
           </div>
         `;
+        } else {
+          toSubmit.innerHTML = `
+            <div class="">
+              <p>Anotation saved</p>
+              <p class="text-saved">${request.content.textCreated.content}</p>
+              <button class="btn btn-primary"><a style="color: #fff;" href="${apiURL}/profile/anotations" target="_blank">see all</a></button>
+              <button class="btn btn-secondary new-anotation">new anotation</button>
+            </div>
+          `;
 
-        let newAnotation = document.querySelector('.new-anotation');
+          let newAnotation = document.querySelector('.new-anotation');
 
-        newAnotation.onclick = () => {
-          console.log('reloading...');
-          window.location.reload();
-        };
+          newAnotation.onclick = () => {
+            console.log('reloading...');
+            window.location.reload();
+          };
+        }        
       }
     });
   }

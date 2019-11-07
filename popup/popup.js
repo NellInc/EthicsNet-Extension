@@ -10,7 +10,11 @@ chrome.storage.sync.get(['userData'], function(result) {
     userInfo.style.display = 'block';
 
     let { userName } = result.userData;
-    userName = userName.charAt(0).toUpperCase() + userName.slice(1);
+
+    if (userName) {
+      userName = userName.charAt(0).toUpperCase() + userName.slice(1);
+    }
+
 
     const welcome = document.querySelector('.welcome');
     welcome.innerHTML = `Welcome to EthicsNet ${userName}`;

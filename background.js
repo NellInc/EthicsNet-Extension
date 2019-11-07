@@ -1,6 +1,8 @@
 const apiURL = 'http://localhost';
+const newApi = 'http://localhost/api2';
 const frontend = 'http://localhost:3000/#/';
 
+// const apiURL = 'http://167.71.163.123/api2';
 // const apiURL = 'http://167.71.163.123';
 // const frontend = 'http://extension.lupuselit.me/#/'
 
@@ -40,7 +42,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
       const postData = async () => {
         console.log('API URL ->', apiURL);
         try {
-          const response = await fetch(`${apiURL}/api2/text`, {
+          const response = await fetch(`${newApi}/text`, {
             method: 'POST',
             mode: 'cors',
             cache: 'no-cache',
@@ -125,7 +127,7 @@ chrome.contextMenus.onClicked.addListener(function(clickedData) {
 
         const postData = async () => {
           try {
-            const response = await fetch(`${apiURL}/api/user/image/${userId}`, {
+            const response = await fetch(`${newApi}/user/image/${userId}`, {
               method: 'PUT',
               mode: 'cors',
               cache: 'no-cache',
@@ -177,7 +179,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
       const postData = async () => {
         try {
-          const response = await fetch(`${apiURL}/api/user/video/${userId}`, {
+          const response = await fetch(`${newApi}/user/video/${userId}`, {
             method: 'PUT',
             mode: 'cors',
             cache: 'no-cache',
