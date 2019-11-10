@@ -1,3 +1,4 @@
+// desistir é uma delicia
 const toSubmit = document.querySelector('.to-submit');
 let font = '';
 
@@ -81,8 +82,11 @@ chrome.storage.sync.get(['userData'], function(result) {
       };
 
       const category = document.querySelector('#category');
+      const categoryRangeContentAction = document.querySelector('.content-action').value;
+      const categoryRangeToneForm = document.querySelector('.tone-form').value
 
-      console.log(options[category.selectedIndex]);
+
+      // console.log(options[category.selectedIndex]);
 
       if (selectedText.value) {
         console.log(selectedText.value);
@@ -91,7 +95,9 @@ chrome.storage.sync.get(['userData'], function(result) {
         const data = {
           to: 'background',
           content: value,
-          category: options[category.selectedIndex],
+          categoryRangeContentAction,
+          categoryRangeToneForm,
+          // category: options[category.selectedIndex],
           font: font,
         };
 
@@ -102,6 +108,10 @@ chrome.storage.sync.get(['userData'], function(result) {
             </div>
           </div>
         `;
+
+        console.log('====================================');
+        console.log('data to submit -> ', data);
+        console.log('====================================');
 
         chrome.runtime.sendMessage(data, response => {
           console.log(response);

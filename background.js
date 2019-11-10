@@ -9,7 +9,7 @@ const frontend = 'http://localhost:3000/#/';
 chrome.runtime.onInstalled.addListener(function() {
   chrome.tabs.create({
     url: 'http://extension.lupuselit.me/#/eula',
-    active: true
+    active: true,
   });
 
   return false;
@@ -28,12 +28,13 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     chrome.storage.sync.get(['userData'], function(result) {
       console.log('Value currently is -> ', result);
 
-      const { content, category, font } = request;
+      const { content, categoryRangeContentAction, categoryRangeToneForm, font } = request;
       const { token, userId } = result.userData;
 
       console.log('request from sidebar -> ', request);
       const data = {
-        category,
+        categoryRangeContentAction,
+        categoryRangeToneForm,
         content,
         font,
         authorId: userId,
@@ -84,10 +85,9 @@ const contextMenuItem = {
   contexts: ['page'],
 };
 
-
 // chrome.contextMenus.create({
-//   title: "Test %s menu item", 
-//   contexts:["selection"], 
+//   title: "Test %s menu item",
+//   contexts:["selection"],
 //   onclick: function(info, tab) {
 //       // sendSearch(info.selectionText);
 //       console.log('====================================');
@@ -232,7 +232,9 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         console.log('screenshot from select person -> ', img);
         console.log('====================================');
 
-        chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+        chrome.tabs.query({ active: true, currentWindow: true }, function(
+          tabs
+        ) {
           chrome.tabs.sendMessage(tabs[0].id, data, function(response) {
             console.log('response to select-person-screenshot ->', response);
           });

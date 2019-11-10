@@ -149,7 +149,7 @@ window.onload = () => {
 
     #ethics-net-extension-root {
       display: none;
-      width: 400px;
+      width: 600px;
       height: 100%;
       position: fixed;
       top: 0px;
