@@ -148,7 +148,7 @@ window.onload = () => {
     }
 
     #ethics-net-extension-root {
-      display: none;
+      display: block;
       width: 600px;
       height: 100%;
       position: fixed;

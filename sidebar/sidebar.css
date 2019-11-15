@@ -6,6 +6,7 @@
 body {
   background-color: #fff;
   padding: 10px;
+  margin: 11px!important;
 }
 
 h2 {
@@ -28,6 +29,35 @@ h2 {
   width: 100%;
   justify-content: center;
   align-items: center;
+}
+
+.ranges {
+  /* background: red; */
+  display: flex;
+  text-align: center;
+  align-items: center;
+  font-size: 14px;
+}
+
+.range-item-1 {
+  /* background-color: blue; */
+  flex-basis: 0;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.range-item-2 {
+  /* background-color: green; */
+  flex-basis: 0;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+#formControlRange {
+  width: 450px;
+  margin: 10px auto;
 }
 
 /* .appear {
