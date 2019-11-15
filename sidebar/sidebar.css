@@ -20,7 +20,7 @@ h2 {
 }
 
 .text {
-  min-height: 470px;
+  min-height: 300px;
 }
 
 .loader-wrapper {
@@ -58,6 +58,18 @@ h2 {
 #formControlRange {
   width: 450px;
   margin: 10px auto;
+}
+
+#formControlRange:hover {
+  cursor: pointer;
+}
+
+.face-icons {
+  /* background-color: #000; */
+}
+
+.face-icons > img {
+  height: 40px;
 }
 
 /* .appear {
