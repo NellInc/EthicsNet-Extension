@@ -2,8 +2,8 @@ const apiURL = 'http://localhost';
 const newApi = 'http://localhost/api2';
 const frontend = 'http://localhost:3000/#/';
 
-// const apiURL = 'http://167.71.163.123/api2';
 // const apiURL = 'http://167.71.163.123';
+// const newApi = 'http://167.71.163.123/api2';
 // const frontend = 'http://extension.lupuselit.me/#/'
 
 chrome.runtime.onInstalled.addListener(function() {
