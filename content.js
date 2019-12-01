@@ -10,9 +10,6 @@ window.onhashchange = function() {
   ) {
     setTimeout(() => {
       const selectPerson = document.querySelector('[data-extension-person]');
-
-      console.log('select person -> ', selectPerson);
-
       // If the button was clicked... do send a message to the background to
       // capture the screen
       selectPerson.onclick = () => {
@@ -31,23 +28,11 @@ window.onhashchange = function() {
 };
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-  console.log(
-    sender.tab
-      ? 'from a content script:' + sender.tab.url
-      : 'from the extension'
-  );
   if (request.to === 'select-person-screenshot') {
-    console.log('====================================');
-    console.log('request to select person -> ', request);
-    console.log('====================================');
-
     sendResponse({ msg: 'vlw men!' });
-
     localStorage.selectPersonImage = request.img;
   }
 });
-
-// console.log(document.getElementsByTagName('video')[0].currentTime);
 
 window.onload = () => {
   // //
@@ -227,16 +212,6 @@ window.onload = () => {
     });
   };
 
-  // LOGIN RELATED!!!
-  // if the users go to the /profile route on the app
-  // it will set the storage
-  console.log('LOGIN RELATED!');
-  console.log(document.URL);
-  console.log(authURL);
-
-  // this wont work!
-  // if (document.URL.includes('http://extension.lupuselit.me') || document.URL.includes('http://localhost:3000')) {}
-
   if (
     document.URL === authURL ||
     document.URL === 'http://localhost:3000/#/' ||
@@ -249,38 +224,19 @@ window.onload = () => {
     document.URL === 'http://extension.lupuselit.me' ||
     document.URL === 'http://extension.lupuselit.me/'
   ) {
-    console.log('SAVED USER INFO ON CHROME EXTENSION');
-
-    // can be any other thing that you have used to authenticate the user
     const userId = localStorage.getItem('userId');
     const token = localStorage.getItem('token');
     const isLogged = localStorage.getItem('isLogged');
     const userName = localStorage.getItem('userName');
-
-    console.log('local storage -> \n', userId, '\n', token, '\n', isLogged);
-
     const userData = {
       userName,
       userId,
       token,
     };
-
-    console.log('user data from content -> ', userData);
-
     chrome.storage.sync.set({ userData }, function() {
       console.log('Value is set to ', userData);
     });
   }
-
-  if (document.URL === 'http://localhost:3000/login') {
-    chrome.storage.sync.get(['userData'], function(result) {
-      console.log('Value currently is ->', result);
-    });
-  }
-
-  chrome.storage.sync.get(['userData'], function(result) {
-    console.log('user currently is ->', result);
-  });
 
   // this works only on reload because it doesnt
   // detect the url changes

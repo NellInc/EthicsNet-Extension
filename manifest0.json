@@ -16,7 +16,9 @@
   "icons": {
     "16": "images/16x16.png"
   },
-  "chrome_url_overrides" : {},
+  "chrome_url_overrides" : {
+  "newtab": "homepage/index.html"
+},
   "web_accessible_resources": ["sidebar/sidebar.html"],
   "browser_action": {
     "default_icon": "images/icon.png",
