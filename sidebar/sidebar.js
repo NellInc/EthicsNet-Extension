@@ -7,7 +7,6 @@ let font = '';
 const apiURL = 'http://extension.lupuselit.me/#';
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-  console.log('getting message from api call ->', request);
   if (request.to === 'new-text') {
     window.location.reload();
     sendResponse({ message: 'ok' });
@@ -73,7 +72,6 @@ chrome.storage.sync.get(['userData'], function(result) {
       const categoryRangeToneForm = document.querySelector('.tone-form').value
 
       if (selectedText.value) {
-        console.log(selectedText.value);
         const { value } = selectedText;
         const data = {
           to: 'background',
@@ -89,9 +87,7 @@ chrome.storage.sync.get(['userData'], function(result) {
             </div>
           </div>
         `;
-        chrome.runtime.sendMessage(data, response => {
-          console.log(response);
-        });
+        chrome.runtime.sendMessage(data);
       }
     };
 
@@ -127,7 +123,6 @@ chrome.storage.sync.get(['userData'], function(result) {
           `;
           let newAnotation = document.querySelector('.new-anotation');
           newAnotation.onclick = () => {
-            console.log('reloading...');
             window.location.reload();
           };
         }

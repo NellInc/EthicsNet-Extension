@@ -13,8 +13,6 @@ window.onhashchange = function() {
       // If the button was clicked... do send a message to the background to
       // capture the screen
       selectPerson.onclick = () => {
-        console.log('select person was clicked! ');
-
         const data = {
           to: 'select-person',
         };
@@ -207,9 +205,7 @@ window.onload = () => {
       font: window.location.href,
     };
 
-    chrome.runtime.sendMessage(data, function(response) {
-      console.log(response);
-    });
+    chrome.runtime.sendMessage(data);
   };
 
   if (
