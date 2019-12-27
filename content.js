@@ -229,9 +229,7 @@ window.onload = () => {
       userId,
       token,
     };
-    chrome.storage.sync.set({ userData }, function() {
-      console.log('Value is set to ', userData);
-    });
+    chrome.storage.sync.set({ userData });
   }
 
   // this works only on reload because it doesnt
